@@ -1,9 +1,10 @@
-package com.dontah.service;
+package com.dontah.service.extractor;
 
 import com.dontah.db.SessionDAO;
 import com.dontah.domain.Balance;
 import com.dontah.domain.Company;
 import com.dontah.domain.Item;
+import com.dontah.service.Extractor;
 import com.dontah.utils.Constants;
 import org.hibernate.Session;
 import org.jsoup.Jsoup;
