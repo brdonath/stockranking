@@ -21,7 +21,6 @@ public class ROEProcessor implements Processor {
         Set<Balance> balanceList = t.getBalanceList();
 
         BigDecimal scores = BigDecimal.ZERO;
-        int roesAvailable = 0;
 
         BigDecimal div = BigDecimal.ZERO;
         for (Balance balance : balanceList) {
@@ -31,14 +30,10 @@ public class ROEProcessor implements Processor {
                     div = BigDecimal.ONE;
                 }
                 scores = scores.add(div);
-                roesAvailable++;
             } catch (ParseException ignored) {
             }
         }
-        if ((roesAvailable == 0)) {
-            return BigDecimal.ZERO;
-        }
-        return scores.divide(BigDecimal.valueOf(roesAvailable), 3, BigDecimal.ROUND_HALF_UP);
+        return scores.divide(BigDecimal.valueOf(balanceList.size()), 3, BigDecimal.ROUND_HALF_UP);
     }
 
     public BigDecimal getROE(String roe) throws ParseException {

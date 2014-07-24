@@ -35,6 +35,8 @@ public class Main {
 
         new ReportWriter(results, getBoostAnalizers());
 
+
+
     }
 
     private static List<BoostAnalizer> getBoostAnalizers() {
