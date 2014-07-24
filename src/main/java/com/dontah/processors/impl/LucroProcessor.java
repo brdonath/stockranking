@@ -24,10 +24,12 @@ public class LucroProcessor implements Processor {
             }
 
             BigDecimal lucro = new BigDecimal(balance.getLucro());
-            if((lucro.compareTo(before) >=0 )){
-                score = score.add(BigDecimal.ONE);
-            }else if( lucro.compareTo(BigDecimal.ZERO) > 0){
-                score = score.add(new BigDecimal(.5));
+            if(lucro.compareTo(BigDecimal.ZERO) > 0) {
+                if ((lucro.compareTo(before) >= 0)) {
+                    score = score.add(BigDecimal.ONE);
+                } else {
+                    score = score.add(new BigDecimal(.5));
+                }
             }
             before = lucro;
         }

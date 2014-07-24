@@ -22,8 +22,7 @@
                 var id = '#div' + elem.id;
                 if( $(id).is(':visible') ) {
                     $(id).hide();
-                }
-                else {
+                }else {
                     $(id).show();
                 }
             }
