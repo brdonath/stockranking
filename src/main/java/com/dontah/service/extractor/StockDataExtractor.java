@@ -1,16 +1,18 @@
 package com.dontah.service.extractor;
 
-import com.dontah.db.SessionDAO;
 import com.dontah.domain.Balance;
 import com.dontah.domain.Company;
 import com.dontah.domain.Item;
+import com.dontah.repository.BalanceRepository;
+import com.dontah.repository.CompanyRepository;
 import com.dontah.service.Extractor;
 import com.dontah.utils.Constants;
-import org.hibernate.Session;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -23,7 +25,13 @@ import java.util.List;
 /**
  * Created by Bruno on 18/07/14.
  */
+@Component
 public class StockDataExtractor implements Extractor<List<Company>> {
+
+    @Autowired
+    BalanceRepository balanceRepository;
+    @Autowired
+    CompanyRepository companyRepository;
 
     @Override
     public List<Company> extract() throws Exception {
@@ -39,9 +47,6 @@ public class StockDataExtractor implements Extractor<List<Company>> {
 
             try (FileOutputStream fileOutputStream = new FileOutputStream("stocksFailed.out", true)) {
                 try {
-                    Session session = SessionDAO.getSession();
-                    session.beginTransaction();
-
                     Elements select = doc.select(".evanual.marcadagua tbody tr");
                     for (Element element : select) {
                         Elements tds = element.getElementsByTag("td");
@@ -50,12 +55,11 @@ public class StockDataExtractor implements Extractor<List<Company>> {
                         balance.setCodBolsa(item.getCodBolsa());
 
                         company.getBalanceList().add(balance);
-                        session.persist(balance);
+                        balanceRepository.persist(balance);
                     }
 
                     companies.add(company);
-                    session.persist(company);
-                    session.getTransaction().commit();
+                    companyRepository.saveOrUpdate(company);
                 } catch (Exception e) {
                     e.printStackTrace();
                     System.out.println("Failed: " + item);

@@ -3,6 +3,7 @@ package com.dontah.processors;
 import com.dontah.domain.Company;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 
 /**
  * Created by Bruno on 19/07/14.
@@ -37,6 +38,9 @@ public class BoostAnalizer{
     }
 
     public BigDecimal getResultWithBoostApplied() {
+        if(resultWithBoostApplied == null){
+            return new BigDecimal(BigInteger.ZERO,3);
+        }
         return resultWithBoostApplied;
     }
 

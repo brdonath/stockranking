@@ -15,37 +15,6 @@ public class Balance implements Serializable, Comparable<Balance> {
         return this.pk.getAno().compareTo(o.pk.getAno());
     }
 
-    @Embeddable
-    public static class CompanyBalancePK implements Serializable{
-
-        String codBolsa;
-        String ano;
-
-        public String getCodBolsa() {
-            return codBolsa;
-        }
-
-        public void setCodBolsa(String codBolsa) {
-            this.codBolsa = codBolsa;
-        }
-
-        public String getAno() {
-            return ano;
-        }
-
-        public void setAno(String ano) {
-            this.ano = ano;
-        }
-
-        @Override
-        public String toString() {
-            return "CompanyBalancePK{" +
-                    "codBolsa='" + codBolsa + '\'' +
-                    ", ano='" + ano + '\'' +
-                    '}';
-        }
-    }
-
     @EmbeddedId
     private CompanyBalancePK pk;
 

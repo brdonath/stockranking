@@ -1,14 +1,8 @@
 apply plugin: 'java'
-apply plugin:'application'
-
-mainClassName = "com.dontah.service.Main"
+apply plugin: 'war'
+apply plugin: 'jetty'
 
 sourceCompatibility = 1.8
-
-jar {
-    baseName = 'stock-ranking'
-    version =  '0.0.1'
-}
 
 repositories {
     mavenLocal()
@@ -20,8 +14,23 @@ dependencies {
     compile 'org.jsoup:jsoup:1.7.2'
     compile "org.springframework:spring-web:4.0.6.RELEASE"
     compile 'com.fasterxml.jackson.core:jackson-databind:2.4.1.2'
-    compile 'org.hibernate:hibernate-core:4.1.4.Final'
+    compile 'org.hibernate:hibernate-core:4.3.6.Final'
+    compile 'org.hibernate:hibernate-entitymanager:4.3.6.Final'
     compile 'org.xerial:sqlite-jdbc:3.7.2'
     compile 'org.apache.velocity:velocity:1.7'
+    compile group: 'commons-io', name: 'commons-io', version: '1.4'
+    compile group: 'log4j', name: 'log4j', version: '1.2.15', ext: 'jar'
+    providedCompile 'javax.servlet:javax.servlet-api:3.0.1'
+    compile 'org.springframework:spring-webmvc:4.0.6.RELEASE'
+    compile 'org.springframework:spring-core:4.0.6.RELEASE'
+    compile 'org.springframework:spring-web:4.0.6.RELEASE'
+    compile 'org.springframework:spring-orm:4.0.6.RELEASE'
+    compile 'org.springframework:spring-context-support:4.0.6.RELEASE'
+    compile 'jstl:jstl:1.2'
+    compile 'cglib:cglib:2.2.2'
+
+
 
 }
+
+httpPort = 8080

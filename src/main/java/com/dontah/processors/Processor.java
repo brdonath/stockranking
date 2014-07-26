@@ -9,4 +9,6 @@ import java.math.BigDecimal;
  */
 public interface Processor  {
     BigDecimal process(Company t);
+
+    String getName();
 }

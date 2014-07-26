@@ -2,14 +2,10 @@ package com.dontah.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.hibernate.annotations.Sort;
-import org.hibernate.annotations.SortType;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 import java.util.SortedSet;
 
 /**
@@ -27,9 +23,9 @@ public class Company implements Serializable, Comparable<Company> {
     @JsonProperty("Nome")
     private String nome;
 
-    @Sort(type = SortType.NATURAL)
-    @OneToMany(mappedBy = "company")
-    private SortedSet<Balance> balanceList;
+    @OrderBy("pk.ano asc")
+    @OneToMany(mappedBy = "company", fetch = FetchType.EAGER)
+    private Set<Balance> balanceList;
 
     public Company() {
     }
@@ -55,7 +51,7 @@ public class Company implements Serializable, Comparable<Company> {
     }
 
 
-    public SortedSet<Balance> getBalanceList() {
+    public Set<Balance> getBalanceList() {
         return balanceList;
     }
 

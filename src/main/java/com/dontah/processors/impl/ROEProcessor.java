@@ -3,6 +3,7 @@ package com.dontah.processors.impl;
 import com.dontah.domain.Balance;
 import com.dontah.domain.Company;
 import com.dontah.processors.Processor;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -12,6 +13,7 @@ import java.util.Set;
 /**
  * Created by Bruno on 22/07/14.
  */
+@Component
 public class ROEProcessor implements Processor {
 
     BigDecimal GOOD_ROE = BigDecimal.valueOf(.30);
@@ -34,6 +36,11 @@ public class ROEProcessor implements Processor {
             }
         }
         return scores.divide(BigDecimal.valueOf(balanceList.size()), 3, BigDecimal.ROUND_HALF_UP);
+    }
+
+    @Override
+    public String getName() {
+        return "ROE";
     }
 
     public BigDecimal getROE(String roe) throws ParseException {

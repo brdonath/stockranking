@@ -1,14 +1,16 @@
 package com.dontah.service.extractor;
 
-import com.dontah.db.SessionDAO;
 import com.dontah.domain.Company;
 import com.dontah.domain.D;
+import com.dontah.repository.CompanyRepository;
 import com.dontah.service.Extractor;
 import com.dontah.utils.Constants;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -19,8 +21,11 @@ import java.util.List;
 /**
  * Created by Bruno on 17/07/14.
  */
+@Component
 public class StockNamesExtractor implements Extractor<D> {
 
+    @Autowired
+    CompanyRepository companyRepository;
     public D extract() throws Exception {
 
         List<Company> items = new ArrayList<>();
@@ -41,11 +46,9 @@ public class StockNamesExtractor implements Extractor<D> {
         }
 
         Collections.sort(items);
-        SessionDAO.getSession().beginTransaction();
         for (Company item : items) {
-            SessionDAO.getSession().saveOrUpdate(item);
+            companyRepository.saveOrUpdate(item);
         }
-        SessionDAO.getSession().getTransaction().commit();
 
         D d = new D();
         d.setCount(items.size());

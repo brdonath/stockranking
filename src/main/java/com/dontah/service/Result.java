@@ -27,7 +27,12 @@ public class Result implements Comparable<Result>{
             boosts += boostAnalizer.getBoost();
             scores = scores.add(boostAnalizer.getFinalScore(company));
         }
-        result = scores.divide(BigDecimal.valueOf(boosts),3,BigDecimal.ROUND_HALF_UP);
+
+        BigDecimal divisor = BigDecimal.valueOf(boosts);
+        if(divisor.compareTo(BigDecimal.ZERO) == 0){
+            return divisor;
+        }
+        result = scores.divide(divisor,3,BigDecimal.ROUND_HALF_UP);
         return result;
     }
 
