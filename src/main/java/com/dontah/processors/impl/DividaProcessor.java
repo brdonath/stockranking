@@ -74,6 +74,14 @@ public class DividaProcessor implements Processor {
 
             for (Balance balance : balanceCollection) {
                 try {
+                    if(balance.getDivDivLL().trim().equalsIgnoreCase("P")){
+                        score = score.add(BigDecimal.ZERO);
+                        continue;
+                    }else if(balance.getDivDivLL().trim().equalsIgnoreCase("-")){
+                        score = score.add(BigDecimal.ONE);
+                        continue;
+                    }
+
                     BigDecimal div= convertDiv(balance.getDivDivLL());
                     if(div.compareTo(new BigDecimal(4))>= 0){
                         score = score.add(BigDecimal.ZERO);
@@ -87,7 +95,7 @@ public class DividaProcessor implements Processor {
                     e.printStackTrace();
                 }
             }
-            return score;
+            return score.divide(BigDecimal.valueOf(balanceCollection.size()), 3, BigDecimal.ROUND_HALF_UP);
         }
     }
 }

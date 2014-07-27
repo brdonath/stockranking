@@ -11,7 +11,10 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 import org.springframework.web.servlet.view.velocity.VelocityConfig;
 import org.springframework.web.servlet.view.velocity.VelocityConfigurer;
@@ -29,7 +32,7 @@ import java.util.Properties;
 @EnableWebMvc
 @EnableTransactionManagement
 @ComponentScan("com.dontah")
-public class WebConfig {
+public class WebConfig extends WebMvcConfigurerAdapter {
 
     @Bean
     public UrlBasedViewResolver setupViewResolver() {
@@ -48,10 +51,21 @@ public class WebConfig {
         return velocityConfig;
     }
 
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/css/**").addResourceLocations("/css/").setCachePeriod(31556926);;
+        registry.addResourceHandler("/bower_components/**").addResourceLocations("/bower_components/").setCachePeriod(31556926);;
+    }
+
+    @Override
+    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+        configurer.enable();
+    }
+
     @Bean
     public DataSource restDataSource(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setUrl("jdbc:sqlite:mydb.sqlite");
+        dataSource.setUrl("jdbc:sqlite:" + getClass().getResource("/mydb.sqlite").getPath());
         dataSource.setPassword("");
         dataSource.setUsername("");
         dataSource.setDriverClassName("org.sqlite.JDBC");

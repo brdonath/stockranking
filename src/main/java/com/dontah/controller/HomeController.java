@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,6 +18,37 @@ import java.util.stream.Collectors;
 
 @Controller
 public class HomeController {
+
+    public static class Params{
+        int lucro;
+        int roe;
+        int div;
+
+
+        public int getLucro() {
+            return lucro;
+        }
+
+        public void setLucro(int lucro) {
+            this.lucro = lucro;
+        }
+
+        public int getRoe() {
+            return roe;
+        }
+
+        public void setRoe(int roe) {
+            this.roe = roe;
+        }
+
+        public int getDiv() {
+            return div;
+        }
+
+        public void setDiv(int div) {
+            this.div = div;
+        }
+    }
 
     @Autowired
     private  CompanyRepository companyRepository;
@@ -28,33 +58,30 @@ public class HomeController {
     @Autowired LucroProcessor lucroProcessor;
 
     @RequestMapping("/")
-    public String hello(
-            @RequestParam(value="lucroProcessorBoost", required=false, defaultValue = "0") int lucroProcessorBoost,
-            @RequestParam(value="roeProcessorBoost", required=false, defaultValue = "0") int roeProcessorBoost,
+    public String home(
+            Params params,
             Model model) {
-        List<Result> results = rank(lucroProcessorBoost,roeProcessorBoost);
+        List<Result> results = rank(params);
         model.addAttribute("results", results);
         model.addAttribute("boostAnalizers",results.get(0).getBoostAnalizerList());
         return "template";
     }
 
-
-    private  List<Result>  rank(
-            int lucroProcessorBoost,
-            int roeProcessorBoost) {
+    private  List<Result>  rank(Params params) {
         List<Company> companyList = companyRepository.getCompanyList();
 
         return companyList
                 .stream()
-                .map(company -> new Result(company, getBoostAnalizers(lucroProcessorBoost, roeProcessorBoost)))
+                .map(company -> new Result(company, getBoostAnalizers(params)))
                 .sorted()
                 .collect(Collectors.toList());
     }
 
-    private List<BoostAnalizer> getBoostAnalizers(int lucroProcessorBoost, int roeProcessorBoost) {
+    private List<BoostAnalizer> getBoostAnalizers(Params params ) {
         return Arrays.asList(
-                new BoostAnalizer(lucroProcessorBoost, lucroProcessor),
-                new BoostAnalizer(roeProcessorBoost, roeProcessor)
+                new BoostAnalizer(params.getLucro(), lucroProcessor),
+                new BoostAnalizer(params.getRoe(), roeProcessor),
+                new BoostAnalizer(params.getDiv(), dividaProcessor)
         );
     }
 

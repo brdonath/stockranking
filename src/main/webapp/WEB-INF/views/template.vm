@@ -1,19 +1,12 @@
 #* @vtlvariable name="boostAnalizers" type="java.util.ArrayList<com.dontah.processors.BoostAnalizer>" *#
 #* @vtlvariable name="results" type="java.util.ArrayList<com.dontah.service.Result>" *#
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/html">
     <head>
-        <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
-        <style>
-            table,th,td
-            {
-                border:1px solid black;
-                border-collapse:collapse;
-            }
-            th,td
-            {
-                padding:5px;
-            }
-        </style>
+        <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
     </head>
 	<body>
 
@@ -28,66 +21,53 @@
             }
         </script>
 
-        Boosts:
-        <p>
-            #foreach($boostAnalizer in $boostAnalizers)
-                $boostAnalizer.processor.class.simpleName $boostAnalizer.boost <br>
-            #end
-        </p>
-        #foreach($result in $results)
-            #set($id = $result.company.codBolsa)
+        <div class="container">
+            Pesos escolhidos:
+            <p>
+                #foreach($boostAnalizer in $boostAnalizers)
+                    $boostAnalizer.processor.name $boostAnalizer.boost <br>
+                #end
+            </p>
+            #foreach($result in $results)
+                #set($id = $result.company.codBolsa)
 
-           <p>$result.company.codBolsa $result.company.nome $result.result <a id="$id" href="javascript:void(0);" onclick="showHide(this);">Mais</a></p>
+               <p>$result.company.codBolsa $result.company.nome $result.result <a id="$id" href="javascript:void(0);" onclick="showHide(this);">Detalhes</a></p>
 
-            <p>#foreach($boostAnalizer in  $result.boostAnalizerList )
-                    $boostAnalizer.processor.class.simpleName $boostAnalizer.result ($boostAnalizer.resultWithBoostApplied)
-               #end </p>
+                <div style="display: none" id="div$id">
 
-            <div style="display: none" id="div$id">
-                <table>
-                    <tbody>
-                        <tr>
-                            <th>codBolsa</th>
-                            <th>ano</th>
-                            <th>patrimonio</th>
-                            <th>receitaLiquida</th>
-                            <th>lucro</th>
-                            <th>margem</th>
-                            <th>roe</th>
-                            <th>caixa</th>
-                            <th>cxLiquido</th>
-                            <th>divida</th>
-                            <th>divDivPL</th>
-                            <th>divDivLL</th>
-                            <th>ie</th>
-                            <th>ib</th>
-                            <th>pdd</th>
-                            <th>pddDivLL</th>
-                        </tr>
-                        #foreach($balance in $result.company.balanceList)
+                    <p>#foreach($boostAnalizer in  $result.boostAnalizerList )
+                        $boostAnalizer.processor.name $boostAnalizer.result ($boostAnalizer.resultWithBoostApplied)
+                    #end </p>
+
+                    <table class="table table-striped table-hover table-condensed table-bordered" >
+                        <thead>
                             <tr>
-                                <td>$!balance.codBolsa</td>
-                                <td>$!balance.ano</td>
-                                <td>$!balance.patrimonio</td>
-                                <td>$!balance.receitaLiquida</td>
-                                <td>$!balance.lucro</td>
-                                <td>$!balance.margem</td>
-                                <td>$!balance.roe</td>
-                                <td>$!balance.caixa</td>
-                                <td>$!balance.cxLiquido</td>
-                                <td>$!balance.divida</td>
-                                <td>$!balance.divDivPL</td>
-                                <td>$!balance.divDivLL</td>
-                                <td>$!balance.ie</td>
-                                <td>$!balance.ib</td>
-                                <td>$!balance.pdd</td>
-                                <td>$!balance.pddDivLL</td>
+                                <th>ano</th>
+                                <th>patrimonio</th>
+                                <th>receitaLiquida</th>
+                                <th>lucro</th>
+                                <th>roe</th>
+                                <th>caixa</th>
+                                <th>divida</th>
                             </tr>
-                        #end
-                    </tbody>
-                </table>
-            </div>
-        #end
+                        </thead>
+                        <tbody>
+                            #foreach($balance in $result.company.balanceList)
+                                <tr>
+                                    <td>$!balance.ano</td>
+                                    <td>$!balance.patrimonio</td>
+                                    <td>$!balance.receitaLiquida</td>
+                                    <td>$!balance.lucro</td>
+                                    <td>$!balance.roe</td>
+                                    <td>$!balance.caixa</td>
+                                    <td>$!balance.divida</td>
+                                </tr>
+                            #end
+                        </tbody>
+                    </table>
+                </div>
+            #end
+        </div>
 	</body>
 </html>
 	
