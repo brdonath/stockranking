@@ -48,6 +48,11 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     public VelocityConfig velocityConfigurer(){
         VelocityConfigurer velocityConfig = new VelocityConfigurer();
         velocityConfig.setResourceLoaderPath("/WEB-INF/views/");
+        Properties velocityProperties = new Properties();
+        velocityProperties.put("velocimacro.permissions.allow.inline.to.replace.global",true);
+        velocityProperties.put("velocimacro.library.autoreload",true);
+        velocityProperties.put("file.resource.loader.cache",true);
+        velocityConfig.setVelocityProperties(velocityProperties);
         return velocityConfig;
     }
 
@@ -76,6 +81,9 @@ public class WebConfig extends WebMvcConfigurerAdapter {
             {
                 setProperty("hibernate.hbm2ddl.auto", "validate");
                 setProperty("hibernate.dialect","org.hibernate.dialect.SQLiteDialect");
+                setProperty("hibernate.cache.region.factory_class","org.hibernate.cache.ehcache.EhCacheRegionFactory");
+                setProperty("hibernate.cache.use_second_level_cache","true");
+                setProperty("hibernate.cache.use_query_cache","false");
 //                setProperty("hibernate.show_sql", "true");
             }
         };

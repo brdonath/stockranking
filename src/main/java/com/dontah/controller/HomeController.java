@@ -67,6 +67,11 @@ public class HomeController {
         return "template";
     }
 
+    @RequestMapping("/test")
+    public String test() {
+        return "test";
+    }
+
     private  List<Result>  rank(Params params) {
         List<Company> companyList = companyRepository.getCompanyList();
 

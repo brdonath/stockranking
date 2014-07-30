@@ -1,0 +1,16 @@
+<script src="/bower_components/jquery/jquery.js"></script>
+<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/bower_components/jquery-colorbox/jquery.colorbox.js"></script>
+
+<script>
+    $(".inline").colorbox(
+            {
+                inline:true,
+                width:"70%",
+                rel:'group1',
+                scrolling:true,
+                current:""
+            });
+</script>
+</body>
+</html>
