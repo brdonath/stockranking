@@ -38,7 +38,7 @@ public class DividaProcessor implements Processor {
 
     @Override
     public String getName() {
-        return "Dívida";
+        return "D&iacute;vida";
     }
 
     class PddProcessor extends DividaProcessor{

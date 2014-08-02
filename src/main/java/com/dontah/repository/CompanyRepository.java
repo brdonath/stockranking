@@ -2,6 +2,7 @@ package com.dontah.repository;
 
 import com.dontah.domain.Company;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,7 +26,13 @@ public class CompanyRepository {
         return (Company) session.find(Company.class,id);
     }
 
+    @Transactional
     public void saveOrUpdate(Company company){
-        session.persist(company);
+        Company data = session.find(Company.class, company.getCodBolsa());
+        if(data != null){
+            data.setNome(company.getNome());
+        }else {
+            session.persist(company);
+        }
     }
 }

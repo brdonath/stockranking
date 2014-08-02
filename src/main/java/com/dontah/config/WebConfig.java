@@ -70,7 +70,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     @Bean
     public DataSource restDataSource(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setUrl("jdbc:sqlite:" + getClass().getResource("/mydb.sqlite").getPath());
+        dataSource.setUrl("jdbc:sqlite:/export/data/mydb.sqlite");
         dataSource.setPassword("");
         dataSource.setUsername("");
         dataSource.setDriverClassName("org.sqlite.JDBC");
@@ -84,7 +84,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
                 setProperty("hibernate.cache.region.factory_class","org.hibernate.cache.ehcache.EhCacheRegionFactory");
                 setProperty("hibernate.cache.use_second_level_cache","true");
                 setProperty("hibernate.cache.use_query_cache","false");
-//                setProperty("hibernate.show_sql", "true");
+                setProperty("hibernate.show_sql", "true");
             }
         };
     }

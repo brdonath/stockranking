@@ -20,9 +20,9 @@ import java.util.stream.Collectors;
 public class HomeController {
 
     public static class Params{
-        int lucro;
-        int roe;
-        int div;
+        int lucro = 1;
+        int roe = 1;
+        int div = 1;
 
 
         public int getLucro() {

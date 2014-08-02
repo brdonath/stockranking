@@ -2,7 +2,8 @@ apply plugin: 'java'
 apply plugin: 'war'
 
 sourceCompatibility = 1.8
-sourceSets.main.java.srcDir 'src/main/webapp'
+group = 'com.dontah'
+version = '0.0.1'
 
 repositories {
     mavenLocal()
@@ -10,13 +11,17 @@ repositories {
 }
 
 dependencies {
+
+    def springVersion = '4.0.6.RELEASE'
+    def hibernateVersion = '4.3.6.Final'
+
     testCompile group: 'junit', name: 'junit', version: '4.11'
-    compile 'org.jsoup:jsoup:1.7.2'
-    compile "org.springframework:spring-web:4.0.6.RELEASE"
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.4.1.2'
-    compile 'org.hibernate:hibernate-core:4.3.6.Final'
-    compile 'org.hibernate:hibernate-entitymanager:4.3.6.Final'
-    compile('org.hibernate:hibernate-ehcache:4.3.6.Final'){
+    compile "org.jsoup:jsoup:1.7.2"
+    compile "com.fasterxml.jackson.core:jackson-databind:2.4.1.2"
+    compile "org.hibernate:hibernate-core:${hibernateVersion}"
+    compile "org.hibernate:hibernate-entitymanager:${hibernateVersion}"
+//    compile "org.hibernate:hibernate-validator:4.3.1.Final"
+    compile("org.hibernate:hibernate-ehcache:${hibernateVersion}"){
         exclude group: 'net.sf.ehcache', module: 'ehcache-core'
     }
     compile 'net.sf.ehcache:ehcache:2.7.0'
@@ -25,14 +30,30 @@ dependencies {
     compile group: 'commons-io', name: 'commons-io', version: '1.4'
     compile group: 'log4j', name: 'log4j', version: '1.2.15', ext: 'jar'
     providedCompile 'javax.servlet:javax.servlet-api:3.0.1'
-    compile 'org.springframework:spring-webmvc:4.0.6.RELEASE'
-    compile 'org.springframework:spring-core:4.0.6.RELEASE'
-    compile 'org.springframework:spring-web:4.0.6.RELEASE'
-    compile 'org.springframework:spring-orm:4.0.6.RELEASE'
-    compile 'org.springframework:spring-context-support:4.0.6.RELEASE'
-    compile 'jstl:jstl:1.2'
-    compile 'cglib:cglib:2.2.2'
+    compile 'javax.validation:validation-api:1.1.0.Final'
 
+    compile "org.springframework:spring-web:${springVersion}"
+    compile "org.springframework:spring-webmvc:${springVersion}"
+    compile "org.springframework:spring-core:${springVersion}"
+    compile "org.springframework:spring-web:${springVersion}"
+    compile "org.springframework:spring-orm:${springVersion}"
+    compile "org.springframework:spring-context-support:${springVersion}"
+    compile "jstl:jstl:1.2"
+    compile "cglib:cglib:2.2.2"
+}
 
+war{
+    archiveName = "ROOT.war-new"
+}
 
+task deployWar(dependsOn: 'war') {
+    def tomcatHome = "${System.env.HOME}/Documents/Dev/apache-tomcat-8.0.9/webapps/www.rankingdeacoes.com.br"
+
+    copy{
+        from war.archivePath.absolutePath
+        into "${tomcatHome}/"
+        rename { String fileName ->
+            fileName.replace('-new', '')
+        }
+    }
 }
