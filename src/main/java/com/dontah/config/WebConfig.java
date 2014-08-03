@@ -84,7 +84,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
                 setProperty("hibernate.cache.region.factory_class","org.hibernate.cache.ehcache.EhCacheRegionFactory");
                 setProperty("hibernate.cache.use_second_level_cache","true");
                 setProperty("hibernate.cache.use_query_cache","false");
-                setProperty("hibernate.show_sql", "true");
+                setProperty("hibernate.show_sql", "false");
             }
         };
     }

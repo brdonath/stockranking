@@ -46,7 +46,8 @@ war{
     archiveName = "ROOT.war-new"
 }
 
-task deployWar(dependsOn: 'war') {
+task deployWar(dependsOn: 'war') << {
+    println "deploying war"
     def tomcatHome = "${System.env.HOME}/Documents/Dev/apache-tomcat-8.0.9/webapps/www.rankingdeacoes.com.br"
 
     copy{
