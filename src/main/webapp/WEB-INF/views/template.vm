@@ -55,7 +55,8 @@
     #set($id = $result.company.codBolsa)
 <div style="display: none">
     <div id="div$id" tabindex="-1" role="dialog" aria-hidden="true">
-        <h3><span class="label label-default">$velocityCount&ordm;</span> $id - $result.company.nome</h3>
+        <h3><span class="label label-default">$velocityCount&ordm;</span> $id - $result.company.nome
+            <img src="/img/${result.company.codBolsa}.gif"></h3>
         <div class="btn pull-right">
             Retirado de
             <a target="_blank" href="http://www.bastter.com/mercado/acao/${result.company.codBolsa}.aspx}"><img style="width: 112px;" src="/img/logo.png"> </a>
