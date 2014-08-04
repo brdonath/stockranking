@@ -37,7 +37,7 @@
                             </td>
                             #end
                             <td style="width: 16%;" class="success middle">
-                                <strong>Pontuação</strong><br>
+                                <strong>Pontua&ccedil;&atilde;o Final</strong><br>
                                 $result.result</td>
                         </tr>
                     </tbody>
@@ -46,6 +46,7 @@
 
         </div>
         <div class="col-md-3">
+            <div class="fb-like-box" data-href="https://www.facebook.com/rankingdeacoes" data-colorscheme="light" data-show-faces="true" data-header="true" data-stream="false" data-show-border="true"></div>
         </div>
     </div>
 </div>
@@ -55,12 +56,16 @@
 <div style="display: none">
     <div id="div$id" tabindex="-1" role="dialog" aria-hidden="true">
         <h3><span class="label label-default">$velocityCount&ordm;</span> $id - $result.company.nome</h3>
+        <div class="btn pull-right">
+            Retirado de
+            <a target="_blank" href="http://www.bastter.com/mercado/acao/${result.company.codBolsa}.aspx}"><img style="width: 112px;" src="/img/logo.png"> </a>
+        </div>
         <table class="table table-striped table-hover table-condensed table-bordered">
             <thead>
             <tr>
                 <th>Ano</th>
-                <th>Patrimônio</th>
-                <th>Receita Líquida</th>
+                <th>Patrim&ocirc;nio</th>
+                <th>Receita L&iacute;quida</th>
                 <th>Lucro</th>
                 <th>ROE</th>
                 <th>Caixa</th>

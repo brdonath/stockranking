@@ -7,7 +7,9 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
+import java.util.Locale;
 import java.util.Set;
 
 /**
@@ -44,7 +46,9 @@ public class ROEProcessor implements Processor {
     }
 
     public BigDecimal getROE(String roe) throws ParseException {
-        DecimalFormat decimalFormat = new DecimalFormat("0.0#%");
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols(new Locale("pt", "BR"));
+        symbols.setDecimalSeparator(',');
+        DecimalFormat decimalFormat = new DecimalFormat("0.0#%",symbols);
         decimalFormat.setParseBigDecimal(true);
         return (BigDecimal) decimalFormat.parse(roe);
     }

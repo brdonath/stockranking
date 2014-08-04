@@ -7,6 +7,16 @@
     <link rel="stylesheet" href="/css/main.css"></link>
 </head>
 <body>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=471323869656740&version=v2.0";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
     <div class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -17,16 +27,14 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="#">
-                    <img style="max-width:100px;"
-                         src="http://www.agenciahuman.com.br/blog/wp-content/uploads/2013/07/logotipo-bull.jpg">
-                        Ranking de Ac&otilde;es</a>
+                        Ranking de A&ccedil;&otilde;es</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="/entenda">Entenda o Ranking</a></li>
+                    <li><a href='javascript:alert("Constru&ccedil;&atilde;o...");'>Entenda o Ranking</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/fale-comigo">Fale Comigo</a></li>
+                    <li><a href="mailto:bruno.internet@gmail.com?Subject=Ranking">Fale Comigo</a></li>
                 </ul>
             </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
