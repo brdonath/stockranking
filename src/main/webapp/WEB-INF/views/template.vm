@@ -1,16 +1,6 @@
 #* @vtlvariable name="boostAnalizers" type="java.util.ArrayList<com.dontah.processors.BoostAnalizer>" *#
 #* @vtlvariable name="results" type="java.util.ArrayList<com.dontah.service.Result>" *#
 #parse("header.vm")
-<script>
-    function showHide(elem) {
-        var id = '#div' + elem.id;
-        if ($(id).is(':visible')) {
-            $(id).hide();
-        } else {
-            $(id).show();
-        }
-    }
-</script>
 
 <div class="container">
     <div class="row">
