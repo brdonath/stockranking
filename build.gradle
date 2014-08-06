@@ -40,6 +40,8 @@ dependencies {
     compile "org.springframework:spring-context-support:${springVersion}"
     compile "jstl:jstl:1.2"
     compile "cglib:cglib:2.2.2"
+    compile 'com.google.guava:guava:17.0'
+
 }
 
 war{

@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -73,7 +74,7 @@ public class HomeController {
     }
 
     private  List<Result>  rank(Params params) {
-        List<Company> companyList = companyRepository.getCompanyList();
+        Collection<Company> companyList = companyRepository.getCompanyList();
 
         return companyList
                 .stream()

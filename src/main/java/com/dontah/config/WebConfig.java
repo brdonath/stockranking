@@ -79,11 +79,11 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     Properties hibernateProperties() {
         return new Properties() {
             {
-                setProperty("hibernate.hbm2ddl.auto", "validate");
+                setProperty("hibernate.hbm2ddl.auto", "none");
                 setProperty("hibernate.dialect","org.hibernate.dialect.SQLiteDialect");
                 setProperty("hibernate.cache.region.factory_class","org.hibernate.cache.ehcache.EhCacheRegionFactory");
                 setProperty("hibernate.cache.use_second_level_cache","true");
-                setProperty("hibernate.cache.use_query_cache","false");
+                setProperty("hibernate.cache.use_query_cache","true");
                 setProperty("hibernate.show_sql", "false");
             }
         };

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
-import java.util.SortedSet;
 
 /**
  * Created by Bruno on 17/07/14.
@@ -24,13 +23,14 @@ public class Company implements Serializable, Comparable<Company> {
     private String nome;
 
     @OrderBy("pk.ano asc")
-    @OneToMany(mappedBy = "company", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "company"
+    )
     private Set<Balance> balanceList;
 
     public Company() {
     }
 
-    public Company(SortedSet<Balance> balanceList) {
+    public Company(Set<Balance> balanceList) {
         this.balanceList = balanceList;
     }
 
@@ -55,7 +55,7 @@ public class Company implements Serializable, Comparable<Company> {
         return balanceList;
     }
 
-    public void setBalanceList(SortedSet<Balance> balanceList) {
+    public void setBalanceList(Set<Balance> balanceList) {
         this.balanceList = balanceList;
     }
 
@@ -70,5 +70,22 @@ public class Company implements Serializable, Comparable<Company> {
     @Override
     public int compareTo(Company o) {
         return this.getCodBolsa().compareTo(o.getCodBolsa());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Company company = (Company) o;
+
+        if (!codBolsa.equals(company.codBolsa)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return codBolsa.hashCode();
     }
 }

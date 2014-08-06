@@ -6,7 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.List;
+import javax.persistence.TypedQuery;
+import java.util.Collection;
 
 /**
  * Created by Bruno on 19/07/14.
@@ -17,21 +18,34 @@ public class CompanyRepository {
     @PersistenceContext
     EntityManager session;
 
-    public List<Company> getCompanyList(){
-        return session.createQuery("select c from com.dontah.domain.Company c",Company.class ).getResultList();
+    public Collection<Company> getCompanyList() {
+//        TypedQuery<Company> query = session.createQuery("select c from Company c", Company.class) //left join fetch c.balanceList
+//                .setHint("org.hibernate.cacheable", true);
+//        List<Company> resultList = query.getResultList();
+//
+//        for (Company company : resultList) {
+//            List<Balance> balanceList = session.createQuery("select b from Balance b where b.pk.codBolsa = :codBolsa", Balance.class) //left join fetch c.balanceList
+//                .setParameter("codBolsa", company.getCodBolsa())
+//                .setHint("org.hibernate.cacheable", true).getResultList();
+//            company.setBalanceList(ImmutableSet.copyOf(balanceList));
+//        }
 
+        TypedQuery<Company> query = session
+                .createQuery("select distinct c from Company c left join fetch c.balanceList", Company.class);
+//                  .setHint("org.hibernate.cacheable", true);
+        return query.getResultList();
     }
 
-    public Company getCompany(String id){
-        return (Company) session.find(Company.class,id);
+    public Company getCompany(String id) {
+        return (Company) session.find(Company.class, id);
     }
 
     @Transactional
-    public void saveOrUpdate(Company company){
+    public void saveOrUpdate(Company company) {
         Company data = session.find(Company.class, company.getCodBolsa());
-        if(data != null){
+        if (data != null) {
             data.setNome(company.getNome());
-        }else {
+        } else {
             session.persist(company);
         }
     }
