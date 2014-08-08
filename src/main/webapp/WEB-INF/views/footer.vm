@@ -1,18 +1,48 @@
 <script src="/bower_components/jquery/jquery.js"></script>
 <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/bower_components/jquery-colorbox/jquery.colorbox.js"></script>
+<script src="/bower_components/TouchSwipe/jquery.touchSwipe.js"></script>
 
 <div id="fb-root"></div>
 <script>
     //colorbox
     $(".inline").colorbox(
             {
+                onOpen:function(){
+                    if ($('#mobilehidden').is(':hidden')) {
+                        jQuery.colorbox.resize({width:'100%', height:'90%'});
+                    }
+                },
+                onComplete:function(){
+                    if ($('#mobilehidden').is(':hidden')) {
+                        jQuery.colorbox.resize({width:'100%', height:'90%'});
+                    }
+                },
                 inline:true,
                 width:"70%",
                 rel:'group1',
                 scrolling:true,
                 current:""
             });
+
+//    jQuery.colorbox.resize({width:'90%', height:'90%'});
+
+    // Make ColorBox responsive
+    jQuery.colorbox.settings.maxWidth  = '100%';
+    jQuery.colorbox.settings.maxHeight = '90%';
+
+    window.addEventListener("orientationchange", function() {
+        if($('#cboxOverlay').is(':visible')){
+            $.colorbox.load(true);
+        }
+        if ($('#mobilehidden').is(':hidden')) {
+            jQuery.colorbox.resize({width:'100%', height:'90%'});
+        } else {
+            // device is >= SMaller
+        }
+    }, false);
+
+
 
     //analitycs
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -30,7 +60,22 @@
         js = d.createElement(s); js.id = id;
         js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=471323869656740&version=v2.0";
         fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));</script>
+    }(document, 'script', 'facebook-jssdk'));
+
+    //swipe
+    jQuery("#colorbox").swipe( {
+        //Generic swipe handler for all directions
+        swipeLeft:function(event, direction, distance, duration, fingerCount) {
+            jQuery.colorbox.next();
+
+        },
+        swipeRight:function(event, direction, distance, duration, fingerCount) {
+            jQuery.colorbox.prev();
+        },
+
+     });
+
+</script>
 
 </body>
 </html>
