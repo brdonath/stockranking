@@ -1,5 +1,8 @@
 package com.dontah.domain;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -8,7 +11,41 @@ import java.io.Serializable;
  */
 @Entity
 @Table
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class Balance implements Serializable, Comparable<Balance> {
+
+    @Embeddable
+    public static  class CompanyBalancePK implements Serializable {
+
+        private String codBolsa;
+        private String ano;
+
+        public CompanyBalancePK() {}
+
+        public String getCodBolsa() {
+            return codBolsa;
+        }
+
+        public void setCodBolsa(String codBolsa) {
+            this.codBolsa = codBolsa;
+        }
+
+        public String getAno() {
+            return ano;
+        }
+
+        public void setAno(String ano) {
+            this.ano = ano;
+        }
+
+        @Override
+        public String toString() {
+            return "CompanyBalancePK{" +
+                    "codBolsa='" + codBolsa + '\'' +
+                    ", ano='" + ano + '\'' +
+                    '}';
+        }
+    }
 
     @Override
     public int compareTo(Balance o) {
@@ -34,9 +71,9 @@ public class Balance implements Serializable, Comparable<Balance> {
     private String pddDivLL;
 
 
-    @ManyToOne
-    @JoinColumn(name = "codBolsa", insertable = false, updatable = false)
-    private Company company;
+//    @ManyToOne
+//    @JoinColumn(name = "codBolsa", insertable = false, updatable = false)
+//    private Company company;
 
     public Balance(){
         pk = new CompanyBalancePK();
@@ -44,8 +81,8 @@ public class Balance implements Serializable, Comparable<Balance> {
 
     private Balance(Builder builder) {
         this();
-        setCodBolsa(builder.codBolsa);
-        setAno(builder.ano);
+        getPk().setCodBolsa(builder.codBolsa);
+        getPk().setAno(builder.ano);
         setPatrimonio(builder.patrimonio);
         setReceitaLiquida(builder.receitaLiquida);
         setLucro(builder.lucro);
@@ -62,13 +99,13 @@ public class Balance implements Serializable, Comparable<Balance> {
         setPddDivLL(builder.pddDivLL);
     }
 
-    public Company getCompany() {
-        return company;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
-    }
+//    public Company getCompany() {
+//        return company;
+//    }
+//
+//    public void setCompany(Company company) {
+//        this.company = company;
+//    }
 
     public String getIe() {
         return ie;
@@ -108,22 +145,6 @@ public class Balance implements Serializable, Comparable<Balance> {
 
     public void setPk(CompanyBalancePK pk) {
         this.pk = pk;
-    }
-
-    public String getCodBolsa() {
-        return pk.getCodBolsa();
-    }
-
-    public void setCodBolsa(String codBolsa) {
-        this.pk.setCodBolsa(codBolsa);
-    }
-
-    public String getAno() {
-        return pk.getAno();
-    }
-
-    public void setAno(String ano) {
-        this.pk.setAno(ano);
     }
 
     public String getPatrimonio() {
@@ -221,10 +242,10 @@ public class Balance implements Serializable, Comparable<Balance> {
         private String divida;
         private String divDivPL;
         private String divDivLL;
-        String ie;
-        String ib;
-        String pdd;
-        String pddDivLL;
+        private String ie;
+        private String ib;
+        private String pdd;
+        private String pddDivLL;
 
         public Builder() {
         }

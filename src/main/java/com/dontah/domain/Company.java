@@ -2,8 +2,13 @@ package com.dontah.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.OrderBy;
 
+import javax.persistence.Entity;
 import javax.persistence.*;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Set;
 
@@ -13,6 +18,7 @@ import java.util.Set;
 @Entity
 @Table
 @JsonIgnoreProperties(ignoreUnknown = true)
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class Company implements Serializable, Comparable<Company> {
 
     @Id
@@ -22,9 +28,9 @@ public class Company implements Serializable, Comparable<Company> {
     @JsonProperty("Nome")
     private String nome;
 
-    @OrderBy("pk.ano asc")
-    @OneToMany(mappedBy = "company"
-    )
+    @OneToMany(mappedBy = "pk.codBolsa", fetch = FetchType.EAGER)
+    @Fetch(FetchMode.JOIN)
+    @SortNatural
     private Set<Balance> balanceList;
 
     public Company() {

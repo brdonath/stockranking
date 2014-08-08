@@ -52,10 +52,10 @@ public class StockDataExtractor implements Extractor<List<Company>> {
                         Elements tds = element.getElementsByTag("td");
 
                         Balance balance = extractBalance(tds);
-                        balance.setCodBolsa(item.getCodBolsa());
+                        balance.getPk().setCodBolsa(item.getCodBolsa());
 
                         company.getBalanceList().add(balance);
-                        balanceRepository.persist(balance);
+                        balanceRepository.saveOrUpdate(balance);
                     }
 
                     companies.add(company);

@@ -50,9 +50,7 @@ public class ExameNamesExtractor implements Extractor<List<Company>> {
     }
 
     private void persist(List<Company> companies) {
-        for (Company company : companies) {
-            companyRepository.saveOrUpdate(company);
-        };
+        companies.forEach(companyRepository::saveOrUpdate);
     }
 
 
