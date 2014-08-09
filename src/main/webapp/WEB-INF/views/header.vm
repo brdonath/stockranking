@@ -6,9 +6,58 @@
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/bower_components/jquery-colorbox/example4/colorbox.css"></link>
+    <script src="/bower_components/jquery/jquery.js"></script>
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/bower_components/jquery-colorbox/jquery.colorbox.js"></script>
+    <script src="/bower_components/TouchSwipe/jquery.touchSwipe.js"></script>
+    <script src="/bower_components/jquery-lazy-load/lazy.js"></script>
     <link rel="stylesheet" href="/css/main.css"></link>
 </head>
 <body>
+
+<div id="fb-root"></div>
+<script>
+//facebook
+(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=471323869656740&version=v2.0";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
+<script>
+    $(document).ready(function() {
+        //colorbox
+        $(".inline").colorbox(
+                {
+                    onOpen:function(){
+                        if ($('#mobilehidden').is(':hidden')) {
+                            jQuery.colorbox.resize({width:'100%', height:'90%'});
+                        }
+                    },
+                    onComplete:function(){
+                        var e = $.colorbox.element()[0].getAttribute("href") + " .lazyColorbox";
+                        $(e).attr("src", $(e).attr("data-original"));
+                        if ($('#mobilehidden').is(':hidden')) {
+                            jQuery.colorbox.resize({width:'100%', height:'90%'});
+                        }
+                    },
+                    inline:true,
+                    width:"70%",
+                    rel:'group1',
+                    scrolling:true,
+                    current:""
+                });
+    });
+</script>
+<script>
+    $(function() {
+        $("img.lazy").lazyload({
+            threshold  : 200
+        });
+    });
+</script>
 
     <div class="navbar navbar-default" role="navigation">
         <div class="container-fluid">

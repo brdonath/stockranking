@@ -1,49 +1,19 @@
-<script src="/bower_components/jquery/jquery.js"></script>
-<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="/bower_components/jquery-colorbox/jquery.colorbox.js"></script>
-<script src="/bower_components/TouchSwipe/jquery.touchSwipe.js"></script>
-
-<div id="fb-root"></div>
 <script>
-    //colorbox
-    $(".inline").colorbox(
-            {
-                onOpen:function(){
-                    if ($('#mobilehidden').is(':hidden')) {
-                        jQuery.colorbox.resize({width:'100%', height:'90%'});
-                    }
-                },
-                onComplete:function(){
-                    if ($('#mobilehidden').is(':hidden')) {
-                        jQuery.colorbox.resize({width:'100%', height:'90%'});
-                    }
-                },
-                inline:true,
-                width:"70%",
-                rel:'group1',
-                scrolling:true,
-                current:""
-            });
+    //swipe
+    $(function() {
+        jQuery("#colorbox").swipe( {
+            //Generic swipe handler for all directions
+            swipeLeft:function(event, direction, distance, duration, fingerCount) {
+                jQuery.colorbox.next();
 
-//    jQuery.colorbox.resize({width:'90%', height:'90%'});
-
-    // Make ColorBox responsive
-    jQuery.colorbox.settings.maxWidth  = '100%';
-    jQuery.colorbox.settings.maxHeight = '90%';
-
-    window.addEventListener("orientationchange", function() {
-        if($('#cboxOverlay').is(':visible')){
-            $.colorbox.load(true);
-        }
-        if ($('#mobilehidden').is(':hidden')) {
-            jQuery.colorbox.resize({width:'100%', height:'90%'});
-        } else {
-            // device is >= SMaller
-        }
-    }, false);
-
-
-
+            },
+            swipeRight:function(event, direction, distance, duration, fingerCount) {
+                jQuery.colorbox.prev();
+            },
+        });
+    });
+</script>
+<script>
     //analitycs
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -52,29 +22,6 @@
 
     ga('create', 'UA-53481525-1', 'auto');
     ga('send', 'pageview');
-
-    //facebook
-    (function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=471323869656740&version=v2.0";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-
-    //swipe
-    jQuery("#colorbox").swipe( {
-        //Generic swipe handler for all directions
-        swipeLeft:function(event, direction, distance, duration, fingerCount) {
-            jQuery.colorbox.next();
-
-        },
-        swipeRight:function(event, direction, distance, duration, fingerCount) {
-            jQuery.colorbox.prev();
-        },
-
-     });
-
 </script>
 
 </body>

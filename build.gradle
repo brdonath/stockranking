@@ -46,6 +46,7 @@ dependencies {
 
 war{
     archiveName = "ROOT.war-new"
+    classpath = sourceSets.main.output.classesDir
 }
 
 task deployWar(dependsOn: 'war') << {
