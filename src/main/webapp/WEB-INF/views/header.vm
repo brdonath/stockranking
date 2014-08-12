@@ -64,7 +64,7 @@
                     inline: true,
                     width: "70%",
                     rel: 'group1',
-                    scrolling: false,
+                    scrolling: true,
                     current: ""
                 });
     }
