@@ -1,5 +1,3 @@
-#* @vtlvariable name="boostAnalizers" type="java.util.ArrayList<com.dontah.processors.BoostAnalizer>" *#
-#* @vtlvariable name="results" type="java.util.ArrayList<com.dontah.service.Result>" *#
 #parse("header.vm")
 
 <div class="container">
@@ -8,44 +6,9 @@
 
         <div id="mobilehidden" class="hidden-xs"></div>
 
+        <div class="col-md-9 col-sm-12 col-xs-12 infinitescroll">
 
-        <div class="col-md-9 col-sm-12 col-xs-12">
-            #foreach($result in $results)
-                #set($id = $result.company.codBolsa)
-                <table class="table table-striped table-hover table-condensed table-bordered">
-                    <tbody>
-                        <tr>
-                            <td class="col-md-1 col-sm-1 col-xs-1" style="
-                            /*width: 12%;*/
-                            vertical-align: middle;text-align: center;">
-                                 <span class="label label-default" style="font-size: 18px;">$velocityCount&ordm;</span>
-                                  </td>
-                            <td class="col-md-3 col-sm-3 col-xs-9" style="
-                            /*width: 24%;*/
-                            vertical-align: middle;">
-                                <img class="lazy" width="46px" data-original="/img/${result.company.codBolsa}.gif">
-                                $result.company.codBolsa $result.company.nome
-##                                <br>
-                                <a href="#div$id" class="btn btn-default btn-link btn-xs inline">
-                                    <span class="glyphicon glyphicon-plus"></span> detalhes</a>
-                            </td>
-                            #foreach($boostAnalizer in  $result.boostAnalizerList )
-                             <td class="middle col-md-2 col-sm-2 hidden-xs" style="
-                             /*width: 16%;*/
-                             " >
-                                <strong>$boostAnalizer.processor.getName()</strong><br>
-                                $boostAnalizer.resultWithBoostApplied
-                            </td>
-                            #end
-                            <td style="
-                            /*width: 16%;*/
-                            " class="success middle col-md-2 col-sm-2 col-xs-2">
-                                <strong>Pontua&ccedil;&atilde;o Final</strong><br>
-                                $result.result</td>
-                        </tr>
-                    </tbody>
-                </table>
-            #end
+            #parse("data.vm")
 
         </div>
         <div class="col-md-3 hidden-xs hidden-sm">
@@ -53,47 +16,5 @@
         </div>
     </div>
 </div>
-
-#foreach($result in $results)
-    #set($id = $result.company.codBolsa)
-<div style="display: none">
-    <div id="div$id" tabindex="-1" role="dialog" aria-hidden="true">
-        <h3><span class="label label-default">$velocityCount&ordm;</span> $id - $result.company.nome
-            <img id="img$id" class="lazyColorbox" data-original="/img/${result.company.codBolsa}.gif" src="">
-        </h3>
-        <div class="btn pull-right">
-            Retirado de
-            <a target="_blank" href="http://www.bastter.com/mercado/acao/${result.company.codBolsa}.aspx}">
-                <img style="width: 112px;" src="/img/logo.png"> </a>
-        </div>
-        <table class="table table-striped table-hover table-condensed table-bordered">
-            <thead>
-            <tr>
-                <th>Ano</th>
-                <th>Patrim&ocirc;nio</th>
-                <th>Receita L&iacute;quida</th>
-                <th>Lucro</th>
-                <th class="hidden-xs hidden-sm">ROE</th>
-                <th class="hidden-xs hidden-sm">Caixa</th>
-                <th class="hidden-xs hidden-sm">D&iacute;vida</th>
-            </tr>
-            </thead>
-            <tbody>
-                #foreach($balance in $result.company.balanceList)
-                <tr>
-                    <td>$!balance.pk.ano</td>
-                    <td>$!balance.patrimonio</td>
-                    <td>$!balance.receitaLiquida</td>
-                    <td >$!balance.lucro</td>
-                    <td class="hidden-xs hidden-sm">$!balance.roe</td>
-                    <td class="hidden-xs hidden-sm">$!balance.caixa</td>
-                    <td class="hidden-xs hidden-sm">$!balance.divida</td>
-                </tr>
-                #end
-            </tbody>
-        </table>
-    </div>
-</div>
-#end
 
 #parse("footer.vm")

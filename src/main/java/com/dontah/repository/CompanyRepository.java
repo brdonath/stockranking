@@ -29,7 +29,8 @@ public class CompanyRepository {
     }
 
     public Company getCompany(String id) {
-        return (Company) sessionFactory.getCurrentSession().get(Company.class, id);
+        return (Company) sessionFactory.getCurrentSession()
+                .get(Company.class, id);
     }
 
     public void saveOrUpdate(Company company) {

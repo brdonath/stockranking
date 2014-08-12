@@ -1,10 +1,7 @@
 package com.dontah.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.*;
-import org.hibernate.annotations.OrderBy;
 
 import javax.persistence.Entity;
 import javax.persistence.*;
@@ -17,15 +14,12 @@ import java.util.Set;
  */
 @Entity
 @Table
-@JsonIgnoreProperties(ignoreUnknown = true)
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class Company implements Serializable, Comparable<Company> {
 
     @Id
-    @JsonProperty("CodBolsa")
     private String codBolsa;
 
-    @JsonProperty("Nome")
     private String nome;
 
     @OneToMany(mappedBy = "pk.codBolsa", fetch = FetchType.EAGER)
