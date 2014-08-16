@@ -13,9 +13,6 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.FileOutputStream;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -30,19 +27,14 @@ public class StockDataExtractor implements Extractor<List<Company>> {
     CompanyRepository companyRepository;
 
     @Override
-    public List<Company> extract() throws Exception {
+    public void extract() throws Exception {
+            for (Company item : companyRepository.getCompanyList()) {
+               try {
+                    String s = String.format(Constants.HTTP_STOCK_DATA, item.getCodBolsa());
+                    Document doc = Jsoup.connect(s).get();
 
-        Collection<Company> companyList = companyRepository.getCompanyList();
-        List<Company> companies = new ArrayList<>();
+                    System.out.println("reading: " + item.getCodBolsa());
 
-        for (Company item : companyList) {
-            String s = String.format(Constants.HTTP_STOCK_DATA, item.getCodBolsa());
-            Document doc = Jsoup.connect(s).get();
-            Company company = new Company();
-            company.setCodBolsa(item.getCodBolsa());
-
-            try (FileOutputStream fileOutputStream = new FileOutputStream("stocksFailed.out", true)) {
-                try {
                     Elements select = doc.select(".evanual.marcadagua tbody tr");
                     for (Element element : select) {
                         Elements tds = element.getElementsByTag("td");
@@ -50,27 +42,17 @@ public class StockDataExtractor implements Extractor<List<Company>> {
                         Balance balance = extractBalance(tds);
                         balance.getPk().setCodBolsa(item.getCodBolsa());
 
-                        company.getBalanceList().add(balance);
                         balanceRepository.saveOrUpdate(balance);
                     }
-
-                    companies.add(company);
-                    companyRepository.saveOrUpdate(company);
                 } catch (Exception e) {
                     e.printStackTrace();
                     System.out.println("Failed: " + item);
-                    fileOutputStream.write((item.getCodBolsa() + "\n").getBytes());
                 }
-            } catch (Exception ignored) {}
-
-
-        }
-
-        return companies;
+            }
     }
 
     private Balance extractBalance(Elements tds) {
-        if(tds.size() > 10 ){
+        if (tds.size() > 10) {
             return new Balance.Builder()
                     .ano(tds.get(0).text())
                     .patrimonio(tds.get(1).text())
@@ -83,7 +65,7 @@ public class StockDataExtractor implements Extractor<List<Company>> {
                     .divida(tds.get(8).text())
                     .divDivPL(tds.get(9).text())
                     .divDivLL(tds.get(10).text()).build();
-        }else{
+        } else {
             return new Balance.Builder()
                     .ano(tds.get(0).text())
                     .patrimonio(tds.get(1).text())

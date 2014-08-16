@@ -1,5 +1,7 @@
 package com.dontah.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.*;
 
@@ -7,25 +9,31 @@ import javax.persistence.Entity;
 import javax.persistence.*;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Created by Bruno on 17/07/14.
  */
 @Entity
 @Table
-@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Company implements Serializable, Comparable<Company> {
 
     @Id
+    @JsonProperty("CodBolsa")
     private String codBolsa;
 
+    @JsonProperty("Nome")
     private String nome;
 
     @OneToMany(mappedBy = "pk.codBolsa", fetch = FetchType.EAGER)
     @Fetch(FetchMode.JOIN)
     @SortNatural
-    private Set<Balance> balanceList;
+    private Set<Balance> balanceList = new TreeSet<>();
 
     public Company() {
     }

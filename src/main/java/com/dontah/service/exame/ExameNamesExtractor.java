@@ -25,10 +25,9 @@ public class ExameNamesExtractor implements Extractor<List<Company>> {
     @Autowired
     CompanyRepository companyRepository;
 
-    public  List<Company> extract() throws Exception {
+    public  void extract() throws Exception {
         List<Company> companies = extractCompanies();
         persist(companies);
-        return companies;
    }
 
     private List<Company> extractCompanies() throws IOException {

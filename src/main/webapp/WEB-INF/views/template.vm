@@ -22,6 +22,9 @@
 
             </div>
             <div class="table-data-companies infinitescroll">
+                <div class="btn pull-right">
+                    Atualizado 16/08/2014
+                </div>
                 #parse("data.vm")
             </div>
 

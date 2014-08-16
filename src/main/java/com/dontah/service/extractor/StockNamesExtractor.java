@@ -26,7 +26,8 @@ public class StockNamesExtractor implements Extractor<D> {
 
     @Autowired
     CompanyRepository companyRepository;
-    public D extract() throws Exception {
+
+    public void extract() throws Exception {
 
         List<Company> items = new ArrayList<>();
 
@@ -47,11 +48,6 @@ public class StockNamesExtractor implements Extractor<D> {
 
         Collections.sort(items);
         items.forEach(companyRepository::saveOrUpdate);
-
-        D d = new D();
-        d.setCount(items.size());
-        d.setItemList(items);
-        return d;
     }
 
 

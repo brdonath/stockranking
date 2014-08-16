@@ -11,7 +11,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table
-@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Balance implements Serializable, Comparable<Balance> {
 
     @Embeddable

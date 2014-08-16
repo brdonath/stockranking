@@ -12,8 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Bruno on 10/08/14.
@@ -65,10 +65,8 @@ public class ResultsRepository {
     }
 
     private List<ResultEntity> transform(List<Result> results) {
-        ArrayList<ResultEntity> resultEntities = new ArrayList<>();
-        for (Result result : results) {
-            resultEntities.add(transform(result));
-        }
+        List<ResultEntity> resultEntities =
+                results.stream().map(this::transform).collect(Collectors.toList());
         return resultEntities;
     }
 
