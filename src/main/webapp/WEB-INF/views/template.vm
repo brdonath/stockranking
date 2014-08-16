@@ -1,3 +1,4 @@
+#* @vtlvariable name="esc" type="org.apache.velocity.tools.generic.EscapeTool" *#
 #parse("header.vm")
 
 <div class="container">
@@ -18,13 +19,9 @@
                 <input type="hidden" id="e21" style="width:100%;" data-placeholder="Digite o c&oacute;digo ou nome da empresa"/>
             </p>
 
-            <div class="select2-elements" style="display: none;">
-
-            </div>
+            <div class="select2-elements" style="display: none;"></div>
             <div class="table-data-companies infinitescroll">
-                <div class="btn pull-right">
-                    Atualizado 16/08/2014
-                </div>
+                <div class="row"><div class="col-sm-12"><p class="text-right">Atualizado em 16/08/2014</p></div></div>
                 #parse("data.vm")
             </div>
 

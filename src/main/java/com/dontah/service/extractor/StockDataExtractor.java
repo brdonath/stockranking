@@ -30,6 +30,7 @@ public class StockDataExtractor implements Extractor<List<Company>> {
     public void extract() throws Exception {
             for (Company item : companyRepository.getCompanyList()) {
                try {
+//                    if(!item.getCodBolsa().equalsIgnoreCase("ogxp")) continue;
                     String s = String.format(Constants.HTTP_STOCK_DATA, item.getCodBolsa());
                     Document doc = Jsoup.connect(s).get();
 

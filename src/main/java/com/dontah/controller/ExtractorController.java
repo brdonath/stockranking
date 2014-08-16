@@ -11,7 +11,6 @@ import com.dontah.service.Result;
 import com.dontah.service.extractor.StockDataExtractor;
 import com.dontah.service.extractor.StockNamesExtractor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -23,8 +22,8 @@ import java.util.stream.Collectors;
 /**
  * Created by Bruno on 16/08/14.
  */
-@RequestMapping("/ext")
-@Controller
+//@RequestMapping("/ext")
+//@Controller
 public class ExtractorController {
 
     @Autowired CompanyRepository companyRepository;

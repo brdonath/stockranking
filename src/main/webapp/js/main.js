@@ -82,8 +82,8 @@ jQuery("#colorbox").swipe({
     }
 });
 
-$(document).bind('cbox_open', function() {
-    $('body').css({ overflow: 'hidden' });
-}).bind('cbox_closed', function() {
-    $('body').css({ overflow: '' });
+$(document).bind('cbox_open', function () {
+    $('html').css({ overflow: 'hidden' });
+}).bind('cbox_closed', function () {
+    $('html').css({ overflow: '' });
 });

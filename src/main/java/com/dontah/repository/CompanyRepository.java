@@ -49,4 +49,10 @@ public class CompanyRepository {
 
         return cr.list();
     }
+
+    public Long getCount(){
+        return ((Long) sessionFactory.getCurrentSession().createCriteria(Company.class).
+                setCacheable(true)
+                .setProjection(Projections.rowCount()).uniqueResult());
+    }
 }

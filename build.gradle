@@ -42,6 +42,8 @@ dependencies {
     compile "cglib:cglib:2.2.2"
     compile 'com.google.guava:guava:17.0'
 
+    compile 'org.apache.velocity:velocity-tools:2.0'
+
 }
 
 war{

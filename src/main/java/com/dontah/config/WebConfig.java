@@ -39,6 +39,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         resolver.setSuffix(".vm");
         resolver.setViewClass(VelocityView.class);
         resolver.setExposeSpringMacroHelpers(true);
+        resolver.setToolboxConfigLocation("/WEB-INF/tools.xml");
+        resolver.setContentType("text/html; charset=utf-8");
         return resolver;
     }
 
@@ -46,12 +48,20 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     public VelocityConfig velocityConfigurer(){
         VelocityConfigurer velocityConfig = new VelocityConfigurer();
         velocityConfig.setResourceLoaderPath("/WEB-INF/views/");
-        Properties velocityProperties = new Properties();
-        velocityProperties.put("velocimacro.permissions.allow.inline.to.replace.global",true);
-        velocityProperties.put("velocimacro.library.autoreload",true);
-        velocityProperties.put("file.resource.loader.cache",true);
-        velocityConfig.setVelocityProperties(velocityProperties);
+        velocityConfig.setVelocityProperties(velocityProperties());
         return velocityConfig;
+    }
+
+    Properties velocityProperties(){
+        return new Properties(){
+            {
+                put("velocimacro.permissions.allow.inline.to.replace.global",true);
+                put("velocimacro.library.autoreload",true);
+                put("file.resource.loader.cache",true);
+                put( "input.encoding", "UTF-8" );
+                put( "output.encoding", "UTF-8" );
+            }
+        };
     }
 
     @Override
