@@ -1,18 +1,12 @@
-var jscrollLoaded = function () {
-    goColorbox();
-    goLazyload();
-}
-
-function jscroll() {
-    $('.infinitescroll').jscroll({
-        loadingHtml: '<img src="/img/loading.gif" alt="Loading" /> Loading...',
-        autoTrigger: true,
-        nextSelector: 'a.last',
-        padding: 600,
-        callback: jscrollLoaded
-    });
-}
-jscroll();
+$('.infinitescroll').jscroll({
+    loadingHtml: '<img src="/img/loading.gif" alt="Loading" /> Loading...',
+    autoTrigger: true,
+    nextSelector: 'a.last',
+    padding: 600,
+    callback: function(){
+        goColorbox();
+    }
+});
 
 //colorbox
 function goColorbox() {
@@ -36,14 +30,11 @@ function goColorbox() {
         });
 }
 
-goColorbox();
-
-function goLazyload() {
-    $("img.lazy").lazyload({
-        threshold: 200
-    });
+function refreshPage() {
+    goColorbox();
 }
-goLazyload();
+refreshPage();
+
 $("#e21").select2({
     multiple: true,
     query: function (query) {
@@ -56,13 +47,11 @@ $("#e21").select2({
 
         query.callback(data);
     }, formatResult: function (result) {
-        return "<img style='width:7%;padding:5px;' class='flag' src='/img/" + result.id + ".gif' />  " + result.text;
+        return "<img class='company-flag' src='/img/" + result.id + ".gif' />  " + result.text;
     }, escapeMarkup: function (m) {
         return m;
     }
-});
-$("#e21")
-    .on("change", function (e) {
+}).on("change", function (e) {
         var select = $("#e21").val();
         var url;
         if (select) {
@@ -73,8 +62,7 @@ $("#e21")
             $.ajax(url).done(function (html) {
                 $("a.last").remove();
                 $(".select2-elements").empty().append(html);
-                jscroll();
-                jscrollLoaded();
+                refreshPage();
             });
         } else {
             $(".select2-elements").hide();
@@ -89,7 +77,7 @@ jQuery("#colorbox").swipe({
         jQuery.colorbox.next();
 
     },
-    swipeRight: function (event, direction, distance, duration, fingerCount) {
+    swipeRight: function (event, direction, distance, duration, fingerCount){
         jQuery.colorbox.prev();
-    },
+    }
 });

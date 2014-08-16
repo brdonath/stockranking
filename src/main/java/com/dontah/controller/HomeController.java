@@ -8,6 +8,8 @@ import com.dontah.processors.impl.ROEProcessor;
 import com.dontah.repository.CompanyRepository;
 import com.dontah.repository.ResultsRepository;
 import com.dontah.service.Result;
+import com.dontah.service.extractor.StockDataExtractor;
+import com.dontah.service.extractor.StockNamesExtractor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -68,10 +70,14 @@ public class HomeController {
     }
 
 
-    //    @RequestMapping("/calc")
+//    @RequestMapping("/calc")
 //    @ResponseBody
     public String calcula(
-            Params params) {
+            Params params) throws Exception {
+
+        new StockNamesExtractor().extract();
+        new StockDataExtractor().extract();
+
         List<Result> results = rank(params);
         resultsRepository.persist(results);
         return "OK";

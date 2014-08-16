@@ -46,9 +46,7 @@ public class StockNamesExtractor implements Extractor<D> {
         }
 
         Collections.sort(items);
-        for (Company item : items) {
-            companyRepository.saveOrUpdate(item);
-        }
+        items.forEach(companyRepository::saveOrUpdate);
 
         D d = new D();
         d.setCount(items.size());

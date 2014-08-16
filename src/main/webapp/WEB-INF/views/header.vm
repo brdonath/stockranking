@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/bower_components/jquery-colorbox/example4/colorbox.css"></link>
-    <link rel="stylesheet" href="/css/main.css"></link>
+    <link rel="stylesheet" href="/css/main.min.css"></link>
     <link rel="stylesheet" href="/bower_components/select2/select2.css"></link>
 </head>
 <body>

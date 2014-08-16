@@ -2,3 +2,7 @@
     vertical-align: middle !important;
     text-align: center;
 }
+img.company-flag {
+    width: 7%;
+    padding: 5px;
+}

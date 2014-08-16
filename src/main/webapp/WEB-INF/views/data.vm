@@ -9,7 +9,7 @@
             <span class="label label-default" style="font-size: 18px;">$result.order&ordm;</span>
         </td>
         <td class="col-md-3 col-sm-3 col-xs-9" style="vertical-align: middle;">
-            <img class="lazy" width="46px" data-original="/img/${result.company.codBolsa}.gif">
+            <img class="lazy" width="46px" src="/img/${result.company.codBolsa}.gif">
             $result.company.codBolsa $result.company.nome
             <a href="#div$id" class="btn btn-default btn-link btn-xs inline">
                 <span class="glyphicon glyphicon-plus"></span> detalhes</a>

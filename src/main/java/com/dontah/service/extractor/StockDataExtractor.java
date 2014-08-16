@@ -2,7 +2,6 @@ package com.dontah.service.extractor;
 
 import com.dontah.domain.Balance;
 import com.dontah.domain.Company;
-import com.dontah.domain.Item;
 import com.dontah.repository.BalanceRepository;
 import com.dontah.repository.CompanyRepository;
 import com.dontah.service.Extractor;
@@ -15,11 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -36,10 +32,10 @@ public class StockDataExtractor implements Extractor<List<Company>> {
     @Override
     public List<Company> extract() throws Exception {
 
-        List<Item> itemList = getItemList();
+        Collection<Company> companyList = companyRepository.getCompanyList();
         List<Company> companies = new ArrayList<>();
 
-        for (Item item : itemList) {
+        for (Company item : companyList) {
             String s = String.format(Constants.HTTP_STOCK_DATA, item.getCodBolsa());
             Document doc = Jsoup.connect(s).get();
             Company company = new Company();
@@ -102,11 +98,4 @@ public class StockDataExtractor implements Extractor<List<Company>> {
         }
     }
 
-    public List<Item> getItemList() throws URISyntaxException, IOException {
-        List<Item> itemList = new ArrayList<>();
-        Files
-                .readAllLines(Paths.get("stocks.out"))
-                .forEach(a -> itemList.add(new Item(a)));
-        return itemList;
-    }
 }
