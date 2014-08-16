@@ -42,6 +42,20 @@ public class ResultsRepository {
         return criteria.list();
     }
 
+    public List<ResultEntity> get(String codBolsa){
+        Query criteria = sessionFactory.getCurrentSession()
+                .createQuery("FROM ResultEntity r where r.codBolsa in (:codBolsa)")
+                .setParameterList("codBolsa", codBolsa.split(","))
+                .setCacheable(true);
+
+        for (Object resultEntity : criteria.list()) {
+            ((ResultEntity) resultEntity).setCompany(
+                    companyRepository.getCompany(((ResultEntity) resultEntity).getCodBolsa()));
+        }
+        return criteria.list();
+    }
+
+
     public void persist(List<Result> results) {
         sessionFactory.getCurrentSession().createSQLQuery("DELETE FROM Result").executeUpdate();
         List<ResultEntity> resultEntities = transform(results);

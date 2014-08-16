@@ -11,6 +11,7 @@ import com.dontah.service.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -41,19 +42,33 @@ public class HomeController {
     public String home(
             Params params,
             Model model) {
-        model.addAttribute("results", resultsRepository.list(params.whereAmI, params.offset));
+        model.addAttribute("results", resultsRepository.list(0, params.offset));
+        model.addAttribute("companyNames", companyRepository.getCompanyNames());
+        model.addAttribute("showNext", true);
         return "template";
     }
 
     @RequestMapping("/infinite")
-    public String home(
+    public String infinite(
             @RequestParam(value = "whereAmI") int whereAmI,
             Model model) {
         model.addAttribute("results", resultsRepository.list(whereAmI, new Params().offset));
+        model.addAttribute("showNext", true);
         return "data";
     }
 
-//    @RequestMapping("/calc")
+    @RequestMapping("/company/{cod}")
+    public String getCompany(
+            @PathVariable String cod,
+            Model model) {
+        model.addAttribute("results", resultsRepository.get(cod));
+        model.addAttribute("showNext", false);
+
+        return "data";
+    }
+
+
+    //    @RequestMapping("/calc")
 //    @ResponseBody
     public String calcula(
             Params params) {

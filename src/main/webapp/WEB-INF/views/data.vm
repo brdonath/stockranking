@@ -5,41 +5,28 @@
 <table class="table table-striped table-hover table-condensed table-bordered">
     <tbody>
     <tr>
-        <td class="col-md-1 col-sm-1 col-xs-1" style="
-                            /*width: 12%;*/
-                            vertical-align: middle;text-align: center;">
+        <td class="col-md-1 col-sm-1 col-xs-1" style="vertical-align: middle;text-align: center;">
             <span class="label label-default" style="font-size: 18px;">$result.order&ordm;</span>
         </td>
-        <td class="col-md-3 col-sm-3 col-xs-9" style="
-                            /*width: 24%;*/
-                            vertical-align: middle;">
+        <td class="col-md-3 col-sm-3 col-xs-9" style="vertical-align: middle;">
             <img class="lazy" width="46px" data-original="/img/${result.company.codBolsa}.gif">
             $result.company.codBolsa $result.company.nome
-        ##                                <br>
             <a href="#div$id" class="btn btn-default btn-link btn-xs inline">
                 <span class="glyphicon glyphicon-plus"></span> detalhes</a>
         </td>
-        <td class="middle col-md-2 col-sm-2 hidden-xs" style="
-                             /*width: 16%;*/
-                             " >
+        <td class="middle col-md-2 col-sm-2 hidden-xs" >
             <strong>Lucro</strong><br>
             $result.lucro
         </td>
-        <td class="middle col-md-2 col-sm-2 hidden-xs" style="
-                             /*width: 16%;*/
-                             " >
+        <td class="middle col-md-2 col-sm-2 hidden-xs" >
             <strong>D&iacute;vida</strong><br>
             $result.divida
         </td>
-        <td class="middle col-md-2 col-sm-2 hidden-xs" style="
-                             /*width: 16%;*/
-                             " >
+        <td class="middle col-md-2 col-sm-2 hidden-xs" >
             <strong>ROE</strong><br>
             $result.Roe
         </td>
-        <td style="
-                            /*width: 16%;*/
-                            " class="success middle col-md-2 col-sm-2 col-xs-2">
+        <td class="success middle col-md-2 col-sm-2 col-xs-2">
             <strong>Pontua&ccedil;&atilde;o Final</strong><br>
             $result.finalResult</td>
     </tr>
@@ -89,8 +76,10 @@
 </div>
 #end
 
-#set($last = $results.size() - 1)
-#if(380 != $results[$last].order)
-    <a href="/infinite/?whereAmI=$results[$last].order" class='btn primary last' rel="nofollow">Next set &raquo;</a>
+#if($showNext)
+    #set($last = $results.size() - 1)
+    #if(380 != $results[$last].order)
+        <a href="/infinite/?whereAmI=$results[$last].order" class='btn primary last' rel="nofollow">Next set &raquo;</a>
+    #end
 #end
 

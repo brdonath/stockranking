@@ -4,6 +4,8 @@ import com.dontah.domain.Company;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.CriteriaSpecification;
+import org.hibernate.criterion.Projections;
+import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,5 +37,16 @@ public class CompanyRepository {
 
     public void saveOrUpdate(Company company) {
         sessionFactory.getCurrentSession().saveOrUpdate(company);
+    }
+
+    public Collection<Company> getCompanyNames(){
+        Criteria cr = sessionFactory.getCurrentSession().createCriteria(Company.class)
+                .setCacheable(true)
+                .setProjection(Projections.projectionList()
+                        .add(Projections.property("codBolsa"), "codBolsa")
+                        .add(Projections.property("nome"), "nome"))
+                .setResultTransformer(Transformers.aliasToBean(Company.class));
+
+        return cr.list();
     }
 }

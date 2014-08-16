@@ -5,10 +5,25 @@
 
 
         <div id="mobilehidden" class="hidden-xs"></div>
+        <div class="hidden-md hidden-lg col-sm-12 col-xs-12">
+            <p>
+                <div class="fb-like" data-href="https://www.facebook.com/rankingdeacoes"
+                     data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+            </p>
+        </div>
 
-        <div class="col-md-9 col-sm-12 col-xs-12 infinitescroll">
+        <div class="col-md-9 col-sm-12 col-xs-12">
 
-            #parse("data.vm")
+            <p>
+                <input type="hidden" id="e21" style="width:100%;" data-placeholder="Digite o c&oacute;digo ou nome da empresa"/>
+            </p>
+
+            <div class="select2-elements" style="display: none;">
+
+            </div>
+            <div class="table-data-companies infinitescroll">
+                #parse("data.vm")
+            </div>
 
         </div>
         <div class="col-md-3 hidden-xs hidden-sm">
