@@ -1,3 +1,4 @@
+#* @vtlvariable name="companyNames" type="java.util.ArrayList<com.dontah.domain.Company>" *#
 <script src="/bower_components/jquery/jquery.min.js"></script>
 <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/bower_components/jquery-colorbox/jquery.colorbox-min.js"></script>
@@ -6,23 +7,9 @@
 <script src="/bower_components/jquery-scroll/jquery.jscroll.min.js"></script>
 <script src="/bower_components/select2/select2.min.js"></script>
 <script src="/bower_components/select2/select2_locale_pt-BR.js"></script>
-<script>
-    var jscrollLoaded = function(){
-        goColorbox();
-        goLazyload();
-    }
 
-    function jscroll() {
-        $('.infinitescroll').jscroll({
-            loadingHtml: '<img src="/img/loading.gif" alt="Loading" /> Loading...',
-            autoTrigger: true,
-            nextSelector: 'a.last',
-            padding: 600,
-            callback: jscrollLoaded
-        });
-    }
-    jscroll();
-</script>
+var preload_data = [#foreach($company in $companyNames){id:'$company.codBolsa', text:'$company.codBolsa - $company.nome'}#if ($velocityHasNext),#end#end]
+<script src="/bower_components/main.js"></script>
 
 <div id="fb-root"></div>
 <script>
@@ -34,92 +21,6 @@
         js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=286103781577570&version=v2.0";
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
-</script>
-<script>
-    //colorbox
-    function goColorbox() {
-        $(".inline").colorbox(
-                {
-                    onOpen: function () {
-                        if ($('#mobilehidden').is(':hidden')) {
-                            jQuery.colorbox.resize({width: '100%', height: '90%'});
-                        }
-                    },
-                    onComplete: function () {
-                        if ($('#mobilehidden').is(':hidden')) {
-                            jQuery.colorbox.resize({width: '100%', height: '90%'});
-                        }
-                    },
-                    inline: true,
-                    width: "70%",
-                    rel: 'group1',
-                    scrolling: true,
-                    current: ""
-                });
-    }
-
-    goColorbox();
-</script>
-<script>
-    function goLazyload(){
-        $("img.lazy").lazyload({
-            threshold  : 200
-        });
-    }
-    goLazyload();
-</script>
-<script>
-    var preload_data=[#foreach($company in $companyNames){id:'$company.codBolsa',text:'$company.codBolsa - $company.nome'}#if($velocityHasNext),#end#end]
-    $("#e21").select2({
-        multiple:true,
-        query: function (query) {
-            var data = {results: []};
-            $.each(preload_data, function () {
-                if (query.term.length == 0 || this.text.toUpperCase().indexOf(query.term.toUpperCase()) >= 0) {
-                    data.results.push({id: this.id, text: this.text });
-                }
-            });
-
-            query.callback(data);
-        }
-        ,formatResult: function(result){
-            return "<img style='width:7%;padding:5px;' class='flag' src='/img/" + result.id + ".gif' />  " + result.text;
-        }
-        ,escapeMarkup: function(m) { return m; }
-    });
-    $("#e21")
-            .on("change", function(e) {
-                var select =  $("#e21").val();
-                var url;
-                if(select){
-                    url = "/company/" +  select;
-                    $(".select2-elements").show();
-                    $(".table-data-companies").hide();
-
-                    $.ajax(url).done(function(html){
-                        $("a.last").remove();
-                        $(".select2-elements").empty().append(html);
-                        jscroll();
-                        jscrollLoaded();
-                    });
-                }else{
-                    $(".select2-elements").hide();
-                    $(".table-data-companies").show();
-                }
-            });
-</script>
-<script>
-    //swipe
-    jQuery("#colorbox").swipe( {
-        //Generic swipe handler for all directions
-        swipeLeft:function(event, direction, distance, duration, fingerCount) {
-            jQuery.colorbox.next();
-
-        },
-        swipeRight:function(event, direction, distance, duration, fingerCount) {
-            jQuery.colorbox.prev();
-        },
-    });
 </script>
 <script>
     //analitycs
