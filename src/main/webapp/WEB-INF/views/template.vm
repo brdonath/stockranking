@@ -7,6 +7,16 @@
 
         <div id="mobilehidden" class="hidden-xs"></div>
         <div class="hidden-md hidden-lg col-sm-12 col-xs-12">
+
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <!-- top mobile -->
+            <ins class="adsbygoogle"
+                 style="display:inline-block;width:320px;height:50px"
+                 data-ad-client="ca-pub-3478581901912412"
+                 data-ad-slot="2088009281"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
             <p>
                 <div class="fb-like" data-href="https://www.facebook.com/rankingdeacoes"
                      data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
