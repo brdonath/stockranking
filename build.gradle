@@ -1,7 +1,6 @@
 apply plugin: 'java'
 apply plugin: 'war'
 apply from: 'http://tellurianring.com/projects/gradle-plugins/gradle-release/apply.groovy'
-apply plugin: 'release'
 
 sourceCompatibility = 1.8
 group = 'com.dontah'
@@ -14,10 +13,10 @@ repositories {
 buildscript {
     repositories {
         mavenCentral()
-        maven { url "https://oss.sonatype.org/content/groups/public"}
+//        maven { url "https://oss.sonatype.org/content/groups/public"}
     }
     dependencies {
-        classpath 'com.github.townsfolk:gradle-release:1.2'
+//        classpath 'com.github.townsfolk:gradle-release:1.2'
     }
 }
 
