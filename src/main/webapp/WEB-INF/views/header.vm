@@ -27,9 +27,9 @@
                         Ranking de A&ccedil;&otilde;es</a>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a href='javascript:alert("Constru&ccedil;&atilde;o...");'>Entenda o Ranking</a></li>
-                </ul>
+##                <ul class="nav navbar-nav">
+##                    <li><a href='javascript:alert("Constru&ccedil;&atilde;o...");'>Entenda o Ranking</a></li>
+##                </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="mailto:bruno.internet@gmail.com?Subject=Ranking">Fale Comigo</a></li>
                 </ul>
