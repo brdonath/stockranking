@@ -1,0 +1,43 @@
+apply plugin: 'war'
+
+dependencies {
+    compile project(':domain')
+
+    compile "org.hibernate:hibernate-core:$hibernateVersion"
+    compile "org.hibernate:hibernate-entitymanager:$hibernateVersion"
+    compile("org.hibernate:hibernate-ehcache:$hibernateVersion"){
+        exclude group: 'net.sf.ehcache', module: 'ehcache-core'
+    }
+    compile 'net.sf.ehcache:ehcache:2.7.0'
+    compile 'org.xerial:sqlite-jdbc:3.7.2'
+
+    compile group: 'commons-io', name: 'commons-io', version: '1.4'
+    compile group: 'log4j', name: 'log4j', version: '1.2.15', ext: 'jar'
+    providedCompile 'javax.servlet:javax.servlet-api:3.0.1'
+    compile 'javax.validation:validation-api:1.1.0.Final'
+
+    compile "jstl:jstl:1.2"
+    compile "cglib:cglib:2.2.2"
+    compile 'com.google.guava:guava:17.0'
+
+    compile 'org.apache.velocity:velocity:1.7'
+    compile 'org.apache.velocity:velocity-tools:2.0'
+}
+
+war{
+    archiveName = "ROOT.war-new"
+//    classpath = sourceSets.main.output.classesDir
+}
+
+task deployWar(dependsOn: 'war') << {
+    println "deploying war"
+    def tomcatHome = "${System.env.HOME}/Documents/Dev/apache-tomcat-8.0.9/webapps/www.rankingdeacoes.com.br"
+
+    copy{
+        from war.archivePath.absolutePath
+        into "${tomcatHome}/"
+        rename { String fileName ->
+            fileName.replace('-new', '')
+        }
+    }
+}

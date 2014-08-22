@@ -1,75 +1,28 @@
-apply plugin: 'java'
-apply plugin: 'war'
 apply from: 'http://tellurianring.com/projects/gradle-plugins/gradle-release/apply.groovy'
 
-sourceCompatibility = 1.8
-group = 'com.dontah'
+ext.springVersion = '4.0.6.RELEASE'
+ext.hibernateVersion = '4.3.6.Final'
 
-repositories {
-    mavenLocal()
-    mavenCentral()
-}
 
-buildscript {
+subprojects {
+    apply plugin: 'java'
+
+    group = 'com.dontah'
+    sourceCompatibility = 1.8
+
     repositories {
         mavenCentral()
-//        maven { url "https://oss.sonatype.org/content/groups/public"}
+        mavenLocal()
     }
+
     dependencies {
-//        classpath 'com.github.townsfolk:gradle-release:1.2'
-    }
-}
+        compile "org.springframework:spring-web:$springVersion"
+        compile "org.springframework:spring-webmvc:$springVersion"
+        compile "org.springframework:spring-core:$springVersion"
+        compile "org.springframework:spring-web:$springVersion"
+        compile "org.springframework:spring-orm:$springVersion"
+        compile "org.springframework:spring-context-support:$springVersion"
 
-
-dependencies {
-
-    def springVersion = '4.0.6.RELEASE'
-    def hibernateVersion = '4.3.6.Final'
-
-    testCompile group: 'junit', name: 'junit', version: '4.11'
-    compile "org.jsoup:jsoup:1.7.2"
-    compile "com.fasterxml.jackson.core:jackson-databind:2.4.1.2"
-    compile "org.hibernate:hibernate-core:${hibernateVersion}"
-    compile "org.hibernate:hibernate-entitymanager:${hibernateVersion}"
-    compile("org.hibernate:hibernate-ehcache:${hibernateVersion}"){
-        exclude group: 'net.sf.ehcache', module: 'ehcache-core'
-    }
-    compile 'net.sf.ehcache:ehcache:2.7.0'
-    compile 'org.xerial:sqlite-jdbc:3.7.2'
-    compile 'org.apache.velocity:velocity:1.7'
-    compile group: 'commons-io', name: 'commons-io', version: '1.4'
-    compile group: 'log4j', name: 'log4j', version: '1.2.15', ext: 'jar'
-    providedCompile 'javax.servlet:javax.servlet-api:3.0.1'
-    compile 'javax.validation:validation-api:1.1.0.Final'
-
-    compile "org.springframework:spring-web:${springVersion}"
-    compile "org.springframework:spring-webmvc:${springVersion}"
-    compile "org.springframework:spring-core:${springVersion}"
-    compile "org.springframework:spring-web:${springVersion}"
-    compile "org.springframework:spring-orm:${springVersion}"
-    compile "org.springframework:spring-context-support:${springVersion}"
-    compile "jstl:jstl:1.2"
-    compile "cglib:cglib:2.2.2"
-    compile 'com.google.guava:guava:17.0'
-
-    compile 'org.apache.velocity:velocity-tools:2.0'
-
-}
-
-war{
-    archiveName = "ROOT.war-new"
-    classpath = sourceSets.main.output.classesDir
-}
-
-task deployWar(dependsOn: 'war') << {
-    println "deploying war"
-    def tomcatHome = "${System.env.HOME}/Documents/Dev/apache-tomcat-8.0.9/webapps/www.rankingdeacoes.com.br"
-
-    copy{
-        from war.archivePath.absolutePath
-        into "${tomcatHome}/"
-        rename { String fileName ->
-            fileName.replace('-new', '')
-        }
+        testCompile group: 'junit', name: 'junit', version: '4.11'
     }
 }
