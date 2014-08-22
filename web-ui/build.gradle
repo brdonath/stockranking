@@ -3,14 +3,6 @@ apply plugin: 'war'
 dependencies {
     compile project(':domain')
 
-    compile "org.hibernate:hibernate-core:$hibernateVersion"
-    compile "org.hibernate:hibernate-entitymanager:$hibernateVersion"
-    compile("org.hibernate:hibernate-ehcache:$hibernateVersion"){
-        exclude group: 'net.sf.ehcache', module: 'ehcache-core'
-    }
-    compile 'net.sf.ehcache:ehcache:2.7.0'
-    compile 'org.xerial:sqlite-jdbc:3.7.2'
-
     compile group: 'commons-io', name: 'commons-io', version: '1.4'
     compile group: 'log4j', name: 'log4j', version: '1.2.15', ext: 'jar'
     providedCompile 'javax.servlet:javax.servlet-api:3.0.1'

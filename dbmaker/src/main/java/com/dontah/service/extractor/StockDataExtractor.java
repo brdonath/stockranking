@@ -4,7 +4,6 @@ import com.dontah.domain.Balance;
 import com.dontah.domain.Company;
 import com.dontah.repository.BalanceRepository;
 import com.dontah.repository.CompanyRepository;
-import com.dontah.service.Extractor;
 import com.dontah.utils.Constants;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

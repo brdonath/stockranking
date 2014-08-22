@@ -3,7 +3,6 @@ package com.dontah.service.extractor;
 import com.dontah.domain.Company;
 import com.dontah.domain.D;
 import com.dontah.repository.CompanyRepository;
-import com.dontah.service.Extractor;
 import com.dontah.utils.Constants;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;

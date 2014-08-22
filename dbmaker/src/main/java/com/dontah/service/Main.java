@@ -1,5 +1,6 @@
-package com.dontah.controller;
+package com.dontah.service;
 
+import com.dontah.config.LocalConfig;
 import com.dontah.domain.Company;
 import com.dontah.domain.ResultEntity;
 import com.dontah.processors.BoostAnalizer;
@@ -8,12 +9,12 @@ import com.dontah.processors.impl.LucroProcessor;
 import com.dontah.processors.impl.ROEProcessor;
 import com.dontah.repository.CompanyRepository;
 import com.dontah.repository.ResultsRepository;
-import com.dontah.service.Result;
 import com.dontah.service.extractor.StockDataExtractor;
 import com.dontah.service.extractor.StockNamesExtractor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -21,30 +22,34 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Created by Bruno on 16/08/14.
+ * Created by Bruno on 22/08/14.
  */
-//@RequestMapping("/ext")
-//@Controller
-public class ExtractorController {
+@Component
+public class Main {
 
     @Autowired CompanyRepository companyRepository;
     @Autowired ResultsRepository resultsRepository;
-    @Autowired DividaProcessor dividaProcessor;
-    @Autowired ROEProcessor roeProcessor;
-    @Autowired LucroProcessor lucroProcessor;
-    @Autowired StockDataExtractor stockDataExtractor;
     @Autowired StockNamesExtractor stockNamesExtractor;
+    @Autowired StockDataExtractor stockDataExtractor;
 
-    @RequestMapping("/calc")
-    @ResponseBody
-    public String calcula() throws Exception {
+    @Autowired LucroProcessor lucroProcessor;
+    @Autowired ROEProcessor roeProcessor;
+    @Autowired DividaProcessor dividaProcessor;
 
-        stockNamesExtractor.extract();
-        stockDataExtractor.extract();
+    public static void main(String[] args) throws Exception {
 
-        List<Result> results = rank();
-        resultsRepository.persist(transform(results));
-        return "OK";
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(LocalConfig.class);
+        Main main = applicationContext.getBean(Main.class);
+        main.start(args);
+    }
+
+    private void start(String[] args) throws Exception {
+//        stockNamesExtractor.extract();
+//        stockDataExtractor.extract();
+
+//        List<Result> results = rank();
+//        resultsRepository.persist(transform(results));
+        System.out.println("cheguei");
     }
 
     private  List<Result>  rank() {
@@ -66,9 +71,7 @@ public class ExtractorController {
     }
 
     private List<ResultEntity> transform(List<Result> results) {
-        List<ResultEntity> resultEntities =
-                results.stream().map(this::transform).collect(Collectors.toList());
-        return resultEntities;
+        return results.stream().map(this::transform).collect(Collectors.toList());
     }
 
     private ResultEntity transform(Result result) {
