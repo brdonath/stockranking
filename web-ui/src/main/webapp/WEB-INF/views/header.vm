@@ -6,33 +6,37 @@
     <meta name="Description"
           content="O Ranking de Ações é um projeto destinado a pontuar todas as empresas listadas na BM&FBovespa.">
 
-    <title>Ranking de A&ccedil;&otilde;es</title>
+    <title>Ranking de Ações</title>
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/bower_components/jquery-colorbox/example4/colorbox.css"></link>
     <link rel="stylesheet" href="/css/main.min.css"></link>
     <link rel="stylesheet" href="/bower_components/select2/select2.css"></link>
 </head>
-<body>
-    <div class="navbar navbar-default" role="navigation">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/">
-                        Ranking de A&ccedil;&otilde;es</a>
-            </div>
-            <div class="navbar-collapse collapse">
-##                <ul class="nav navbar-nav">
-##                    <li><a href='javascript:alert("Constru&ccedil;&atilde;o...");'>Entenda o Ranking</a></li>
-##                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="mailto:bruno.internet@gmail.com?Subject=Ranking">Fale Comigo</a></li>
-                </ul>
-            </div><!--/.nav-collapse -->
-        </div><!--/.container-fluid -->
+<body style="padding-top: 100px;">
+    <div class="navbar-wrapper navbar-default navbar-fixed-top" role="navigation">
+        <div class="navbar-inner">
+            <div class="container">
+                <div class="navbar-header col-md-3">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="brand" href="/">
+                        <img style="display: inline-block; height: 100px; padding: 14px 0px; margin-left: -12px;"  src="/img/logo2.png" /></a>
+                </div>
+                <div class="navbar-collapse collapse" style="margin-top:48px;">
+                    <ul class="nav navbar-nav col-md-6 hidden-xs hidden-sm">
+                        <li style="width:100%;">
+                            <input type="hidden" id="e22" style="width:100%;" data-placeholder="Digite o c&oacute;digo ou nome da empresa"/>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right col-md-3">
+                        <li><a href="mailto:bruno.internet@gmail.com?Subject=Ranking">Fale Comigo</a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div><!--/.container -->
+        </div>
     </div>

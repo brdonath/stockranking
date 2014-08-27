@@ -35,7 +35,7 @@ function refreshPage() {
 }
 refreshPage();
 
-$("#e21").select2({
+$("#e21,#e22").select2({
     multiple: true,
     query: function (query) {
         var data = {results: []};
@@ -52,7 +52,7 @@ $("#e21").select2({
         return m;
     }
 }).on("change", function (e) {
-        var select = $("#e21").val();
+        var select = $(this).val();
         var url;
         if (select) {
             url = "/company/" + select;

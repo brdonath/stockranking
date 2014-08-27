@@ -31,7 +31,7 @@
                 O <strong>Ranking de A$esc.html("çõ")es</strong> é um projeto destinado a pontuar todas as empresas da BM$esc.html("&")FBovespa. Do maior ao menor, as empresas s$esc.html("ão") listadas com base em seus dados hist$esc.html("ó")ricos, como lucro, ROE(retorno sobre patrim$esc.html("ô")nio) e d$esc.html("í")vida.
             </p>
             <br>
-            <p>
+            <p class="hidden-md hidden-lg">
                 <input type="hidden" id="e21" style="width:100%;" data-placeholder="Digite o c&oacute;digo ou nome da empresa"/>
             </p>
 

@@ -68,7 +68,7 @@
         <div class="btn pull-right">
             Retirado de
             <a target="_blank" href="http://www.bastter.com/mercado/acao/${result.company.codBolsa}.aspx}">
-                <img style="width: 112px;" src="/img/logo.png"> </a>
+                <img style="width: 112px;" src="/img/logo.png"></a> (em milh$esc.html("õe")s)
         </div>
         <table class="table table-striped table-hover table-condensed table-bordered">
             <thead>
