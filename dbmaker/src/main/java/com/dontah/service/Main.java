@@ -47,8 +47,8 @@ public class Main {
 //        stockNamesExtractor.extract();
 //        stockDataExtractor.extract();
 
-//        List<Result> results = rank();
-//        resultsRepository.persist(transform(results));
+        List<Result> results = rank();
+        resultsRepository.persist(transform(results));
         System.out.println("cheguei");
     }
 

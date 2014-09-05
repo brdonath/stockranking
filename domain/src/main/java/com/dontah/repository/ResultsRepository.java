@@ -3,6 +3,7 @@ package com.dontah.repository;
 import com.dontah.domain.ResultEntity;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +25,7 @@ public class ResultsRepository {
 
     public List<ResultEntity> list(int whereAmI, int offset){
         Query criteria = sessionFactory.getCurrentSession()
-                .createQuery("FROM ResultEntity")
+                .createQuery("FROM ResultEntity order by position")
                 .setFirstResult(whereAmI)
                 .setMaxResults(offset)
                 .setCacheable(true);
@@ -49,12 +50,24 @@ public class ResultsRepository {
         return criteria.list();
     }
 
+    public ResultEntity getOnly(String codBolsa){
+        return (ResultEntity) sessionFactory.getCurrentSession().
+                createCriteria(ResultEntity.class).add(Restrictions.like("codBolsa", codBolsa).ignoreCase()).uniqueResult();
+    }
 
     public void persist(List<ResultEntity> results) {
-        sessionFactory.getCurrentSession().createSQLQuery("DELETE FROM Result").executeUpdate();
 
+        int index = 0;
         for (ResultEntity resultEntity : results) {
-            sessionFactory.getCurrentSession().persist(resultEntity);
+            index++;
+            ResultEntity before = getOnly(resultEntity.getCodBolsa());
+
+            before.setLastPosition(before.getPosition());
+            before.setPosition((long) index);
+            before.setLucro(resultEntity.getLucro());
+            before.setRoe(resultEntity.getRoe());
+            before.setDivida(resultEntity.getDivida());
+            before.setFinalResult(resultEntity.getFinalResult());
         }
     }
 }

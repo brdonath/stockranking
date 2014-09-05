@@ -37,6 +37,9 @@ public class ResultEntity {
     @Type(type="com.dontah.dialect.BigDecimalToStringType")
     private BigDecimal finalResult;
 
+    private Long position;
+    private Long lastPosition;
+
     public String getCodBolsa() {
         return codBolsa;
     }
@@ -91,5 +94,21 @@ public class ResultEntity {
 
     public void setRoe(BigDecimal roe) {
         this.roe = roe;
+    }
+
+    public Long getPosition() {
+        return position;
+    }
+
+    public void setPosition(Long position) {
+        this.position = position;
+    }
+
+    public Long getLastPosition() {
+        return lastPosition;
+    }
+
+    public void setLastPosition(Long lastPosition) {
+        this.lastPosition = lastPosition;
     }
 }

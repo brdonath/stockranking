@@ -18,7 +18,7 @@ import java.util.Set;
 @Component
 public class ROEProcessor implements Processor {
 
-    BigDecimal GOOD_ROE = BigDecimal.valueOf(.30);
+    BigDecimal GOOD_ROE = BigDecimal.valueOf(.20);
 
     @Override
     public BigDecimal process(Company t) {

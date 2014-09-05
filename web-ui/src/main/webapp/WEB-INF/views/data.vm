@@ -7,7 +7,7 @@
     <tbody>
     <tr>
         <td class="col-md-1 col-xs-1" style="vertical-align: middle;">
-            <span class="label label-default" style="font-size: 18px;">$result.order&ordm;</span>
+            <span class="label label-default" style="font-size: 18px;">$result.position&ordm;</span>
         </td>
         <td class="col-md-3 col-xs-9 text-left" style="vertical-align: middle;">
             <img class="lazy" width="46px" src="/img/${result.company.codBolsa}.gif">
@@ -29,7 +29,15 @@
         </td>
         <td class="success col-xs-2">
             <strong>Pontua&ccedil;&atilde;o Final</strong><br>
-            $result.finalResult</td>
+            $result.finalResult <span
+                #if($result.position < $result.lastPosition)
+                    class="glyphicon glyphicon-chevron-up"
+                    style="color: green"
+                #else
+                    class="glyphicon glyphicon-chevron-down"
+                    style="color: red"
+                #end
+                ></span></td>
     </tr>
     </tbody>
 </table>
@@ -39,7 +47,7 @@
     #set($id = $result.company.codBolsa)
 <div style="display: none">
     <div id="div$id" tabindex="-1" role="dialog" aria-hidden="true">
-        <h3><span class="label label-default">$result.order&ordm;</span> $id - $result.company.nome
+        <h3><span class="label label-default">$result.position&ordm;</span> $id - $result.company.nome
             <img id="img$id" src="/img/${result.company.codBolsa}.gif" src="">
         </h3>
 
@@ -102,6 +110,6 @@
 
 #if($hasNext)
     #set($last = $results.size() - 1)
-    <a href="/infinite/?whereAmI=$results[$last].order" class='btn primary last' rel="nofollow">Next set &raquo;</a>
+    <a href="/infinite/?whereAmI=$results[$last].position" class='btn primary last' rel="nofollow">Next set &raquo;</a>
 #end
 

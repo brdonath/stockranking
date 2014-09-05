@@ -37,7 +37,7 @@
 
             <div class="select2-elements" style="display: none;"></div>
             <div class="table-data-companies infinitescroll">
-                <div class="row"><div class="col-sm-12"><p class="text-right">Atualizado em 16/08/2014</p></div></div>
+##                <div class="row"><div class="col-sm-12"><p class="text-right">Atualizado em 16/08/2014</p></div></div>
                 #parse("data.vm")
             </div>
 
