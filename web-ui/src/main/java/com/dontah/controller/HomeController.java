@@ -28,7 +28,7 @@ public class HomeController {
     public String home(
             Params params,
             Model model) {
-        model.addAttribute("results", resultsRepository.list(0, params.offset));
+        model.addAttribute("results", resultsRepository.list(0, params.offset, true));
         model.addAttribute("companyNames", companyRepository.getCompanyNames());
         model.addAttribute("hasNext", true);
         return "template";
@@ -38,7 +38,7 @@ public class HomeController {
     public String infinite(
             @RequestParam(value = "whereAmI") int whereAmI,
             Model model) {
-        List<ResultEntity> list = resultsRepository.list(whereAmI, new Params().offset);
+        List<ResultEntity> list = resultsRepository.list(whereAmI, new Params().offset, true);
         model.addAttribute("results", list);
         model.addAttribute("hasNext", hasNext(list));
         return "data";
@@ -48,7 +48,7 @@ public class HomeController {
     public String getCompany(
             @PathVariable String cod,
             Model model) {
-        model.addAttribute("results", resultsRepository.get(cod));
+        model.addAttribute("results", resultsRepository.get(cod, true));
         model.addAttribute("hasNext", false);
 
         return "data";

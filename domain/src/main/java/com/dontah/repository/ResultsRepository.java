@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -23,36 +24,56 @@ public class ResultsRepository {
     @Autowired
     CompanyRepository companyRepository;
 
-    public List<ResultEntity> list(int whereAmI, int offset){
+    public List<ResultEntity> list(int whereAmI, int offset, boolean getAll){
         Query criteria = sessionFactory.getCurrentSession()
                 .createQuery("FROM ResultEntity order by position")
                 .setFirstResult(whereAmI)
                 .setMaxResults(offset)
                 .setCacheable(true);
 
-        for (Object resultEntity : criteria.list()) {
-            ((ResultEntity) resultEntity).setCompany(
-                    companyRepository.getCompany(((ResultEntity) resultEntity).getCodBolsa()));
+        for (Object o : criteria.list()) {
+            ResultEntity resultEntity = (ResultEntity) o;
+            if(getAll){
+                resultEntity.setCompany(
+                        companyRepository.getCompany(resultEntity.getCodBolsa()));
+                continue;
+            }
+
+            resultEntity.setCompany(companyRepository.getCompanyOnly(resultEntity.getCodBolsa()));
         }
         return criteria.list();
     }
 
-    public List<ResultEntity> get(String codBolsa){
+    /**
+     *
+     * @param codBolsas codBolsa splits by ,
+     * @return
+     */
+    public List<ResultEntity> get(String codBolsas, boolean getAll){
         Query criteria = sessionFactory.getCurrentSession()
                 .createQuery("FROM ResultEntity r where r.codBolsa in (:codBolsa)")
-                .setParameterList("codBolsa", codBolsa.split(","))
+                .setParameterList("codBolsa", codBolsas.split(","))
                 .setCacheable(true);
 
-        for (Object resultEntity : criteria.list()) {
-            ((ResultEntity) resultEntity).setCompany(
-                    companyRepository.getCompany(((ResultEntity) resultEntity).getCodBolsa()));
+        for (Object o : criteria.list()) {
+            ResultEntity resultEntity = (ResultEntity) o;
+            if(getAll) {
+                resultEntity.setCompany(
+                        companyRepository.getCompany(resultEntity.getCodBolsa()));
+                continue;
+            }
+            resultEntity.setCompany(companyRepository.getCompanyOnly(resultEntity.getCodBolsa()));
         }
         return criteria.list();
     }
 
-    public ResultEntity getOnly(String codBolsa){
-        return (ResultEntity) sessionFactory.getCurrentSession().
-                createCriteria(ResultEntity.class).add(Restrictions.like("codBolsa", codBolsa).ignoreCase()).uniqueResult();
+    public List<ResultEntity> getOnly(String codBolsa){
+        ResultEntity resultEntity = (ResultEntity)sessionFactory.getCurrentSession()
+                .createCriteria(ResultEntity.class)
+                .add(Restrictions.like("codBolsa", codBolsa).ignoreCase())
+                .uniqueResult();
+        resultEntity.setCompany(companyRepository.getCompanyOnly(resultEntity.getCodBolsa()));
+        return Arrays.asList(resultEntity);
     }
 
     public void persist(List<ResultEntity> results) {
@@ -60,7 +81,7 @@ public class ResultsRepository {
         int index = 0;
         for (ResultEntity resultEntity : results) {
             index++;
-            ResultEntity before = getOnly(resultEntity.getCodBolsa());
+            ResultEntity before = getOnly(resultEntity.getCodBolsa()).get(0);
 
             before.setLastPosition(before.getPosition());
             before.setPosition((long) index);

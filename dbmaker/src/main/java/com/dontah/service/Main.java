@@ -11,11 +11,16 @@ import com.dontah.repository.CompanyRepository;
 import com.dontah.repository.ResultsRepository;
 import com.dontah.service.extractor.StockDataExtractor;
 import com.dontah.service.extractor.StockNamesExtractor;
+import com.dontah.utils.Constants;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -47,9 +52,21 @@ public class Main {
 //        stockNamesExtractor.extract();
 //        stockDataExtractor.extract();
 
-        List<Result> results = rank();
-        resultsRepository.persist(transform(results));
-        System.out.println("cheguei");
+//        List<Result> results = rank();
+//        resultsRepository.persist(transform(results));
+//        System.out.println("cheguei");
+
+        tempName();
+    }
+
+    private void tempName() throws IOException {
+        Collection<Company> companyNames = companyRepository.getCompanyNames();
+        for (Company companyName : companyNames) {
+            String s = String.format(Constants.HTTP_STOCK_DATA, companyName.getCodBolsa());
+            Document doc = Jsoup.connect(s).get();
+            Elements select = doc.select(".multiplus thead tr");
+
+        }
     }
 
     private  List<Result>  rank() {

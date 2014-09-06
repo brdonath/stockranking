@@ -5,6 +5,7 @@ import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -33,6 +34,19 @@ public class CompanyRepository {
     public Company getCompany(String id) {
         return (Company) sessionFactory.getCurrentSession()
                 .get(Company.class, id);
+    }
+
+    public Company getCompanyOnly(String codBolsa){
+        Criteria cr = sessionFactory.getCurrentSession()
+                .createCriteria(Company.class)
+                .setCacheable(true)
+                .add(Restrictions.eq("codBolsa", codBolsa))
+                .setProjection(Projections.projectionList()
+                        .add(Projections.property("codBolsa"), "codBolsa")
+                        .add(Projections.property("nome"), "nome"))
+                .setResultTransformer(Transformers.aliasToBean(Company.class));
+
+        return (Company) cr.uniqueResult();
     }
 
     public void saveOrUpdate(Company company) {
