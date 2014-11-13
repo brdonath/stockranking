@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 /**
@@ -52,25 +53,32 @@ public class Main {
 //        stockNamesExtractor.extract();
 //        stockDataExtractor.extract();
 
-//        List<Result> results = rank();
-//        resultsRepository.persist(transform(results));
+        List<Result> results = rank();
+        resultsRepository.persist(transform(results));
 //        System.out.println("cheguei");
 
-        tempName();
+//        tempName();
     }
 
-    private void tempName() throws IOException {
-        Collection<Company> companyNames = companyRepository.getCompanyNames();
-        for (Company companyName : companyNames) {
-            String s = String.format(Constants.HTTP_STOCK_DATA, companyName.getCodBolsa());
-            Document doc = Jsoup.connect(s).get();
-            Elements select = doc.select(".multiplus thead tr");
-
-        }
-    }
+//    private void tempName() throws IOException {
+//        Collection<Company> companyNames = companyRepository.getCompanyNames();
+//        for (Company companyName : companyNames) {
+//            String s = String.format(Constants.HTTP_STOCK_DATA, companyName.getCodBolsa());
+//            Document doc = Jsoup.connect(s).get();
+//            Elements select = doc.select(".multiplus thead tr");
+//
+//        }
+//    }
 
     private  List<Result>  rank() {
         Collection<Company> companyList = companyRepository.getCompanyList();
+
+        companyList.forEach(a->
+                a.setBalanceList(
+                        a.getBalanceList().stream()
+                                .filter(b -> Integer.parseInt(b.getPk().getAno()) >= 2009)
+                                .collect(Collectors.toCollection(TreeSet::new))
+                ));
 
         return companyList
                 .stream()

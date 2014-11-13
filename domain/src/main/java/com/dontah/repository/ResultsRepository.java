@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -72,6 +73,9 @@ public class ResultsRepository {
                 .createCriteria(ResultEntity.class)
                 .add(Restrictions.like("codBolsa", codBolsa).ignoreCase())
                 .uniqueResult();
+        if( resultEntity == null ){
+            return new ArrayList<>();
+        }
         resultEntity.setCompany(companyRepository.getCompanyOnly(resultEntity.getCodBolsa()));
         return Arrays.asList(resultEntity);
     }
@@ -81,14 +85,23 @@ public class ResultsRepository {
         int index = 0;
         for (ResultEntity resultEntity : results) {
             index++;
-            ResultEntity before = getOnly(resultEntity.getCodBolsa()).get(0);
+            List<ResultEntity> only = getOnly(resultEntity.getCodBolsa());
+            ResultEntity before;
+            if(only.size() == 0){
+                before = new ResultEntity();
+                before.setCodBolsa(resultEntity.getCodBolsa());
+                before.setLastPosition(0L);
+            }else {
+                before = only.get(0);
+                before.setLastPosition(before.getPosition());
+            }
 
-            before.setLastPosition(before.getPosition());
             before.setPosition((long) index);
             before.setLucro(resultEntity.getLucro());
             before.setRoe(resultEntity.getRoe());
             before.setDivida(resultEntity.getDivida());
             before.setFinalResult(resultEntity.getFinalResult());
+            sessionFactory.getCurrentSession().saveOrUpdate(before);
         }
     }
 }

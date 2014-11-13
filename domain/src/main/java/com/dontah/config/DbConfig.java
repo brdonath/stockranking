@@ -38,7 +38,7 @@ public class DbConfig {
                 setProperty("hibernate.cache.use_query_cache","true");
                 setProperty("hibernate.show_sql", "false");
                 setProperty("hibernate.globally_quoted_identifiers", "true");
-                setProperty("hibernate.generate_statistics", "true");
+                setProperty("hibernate.generate_statistics", "false");
             }
         };
     }

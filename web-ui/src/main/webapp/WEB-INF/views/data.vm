@@ -1,4 +1,5 @@
 #* @vtlvariable name="esc" type="org.apache.velocity.tools.generic.EscapeTool" *#
+#* @vtlvariable name="math" type="org.apache.velocity.tools.generic.MathTool" *#
 #* @vtlvariable name="results" type="java.util.ArrayList<com.dontah.domain.ResultEntity>" *#
 
 #foreach($result in $results)
@@ -30,14 +31,19 @@
         <td class="success col-xs-2">
             <strong>Pontua&ccedil;&atilde;o Final</strong><br>
             $result.finalResult <span
-                #if($result.position < $result.lastPosition)
+
+                #set($value = ($result.position - $result.lastPosition))
+
+                #if($result.position <= $result.lastPosition)
                     class="glyphicon glyphicon-chevron-up"
                     style="color: green"
                 #else
                     class="glyphicon glyphicon-chevron-down"
                     style="color: red"
                 #end
-                ></span></td>
+               ><strong>$math.abs($value)</strong></span>
+               </td>
+
     </tr>
     </tbody>
 </table>

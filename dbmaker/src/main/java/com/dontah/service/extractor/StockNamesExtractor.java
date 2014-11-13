@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Bruno on 17/07/14.
@@ -45,8 +46,11 @@ public class StockNamesExtractor implements Extractor<D> {
             items.addAll(d.getItemList());
         }
 
-        Collections.sort(items);
-        items.forEach(companyRepository::saveOrUpdate);
+        List<Company> filteredList = items.stream()
+                .filter(a -> a.getCodBolsa() != null)
+                .collect(Collectors.toList());
+        Collections.sort(filteredList);
+        companyRepository.saveOrUpdate(filteredList);
     }
 
 

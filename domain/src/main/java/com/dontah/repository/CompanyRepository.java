@@ -23,14 +23,6 @@ public class CompanyRepository {
     @Autowired
     SessionFactory sessionFactory;
 
-    public Collection<Company> getCompanyList() {
-        Criteria criteria = sessionFactory.getCurrentSession()
-                .createCriteria(Company.class)
-                .setCacheable(true)
-                .setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
-        return criteria.list();
-    }
-
     public Company getCompany(String id) {
         return (Company) sessionFactory.getCurrentSession()
                 .get(Company.class, id);
@@ -49,8 +41,16 @@ public class CompanyRepository {
         return (Company) cr.uniqueResult();
     }
 
-    public void saveOrUpdate(Company company) {
-        sessionFactory.getCurrentSession().saveOrUpdate(company);
+    public Collection<Company> getCompanyList() {
+        Criteria criteria = sessionFactory.getCurrentSession()
+                .createCriteria(Company.class)
+                .setCacheable(true)
+                .setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
+        return criteria.list();
+    }
+
+    public void saveOrUpdate(Collection<Company> companies) {
+        companies.forEach(sessionFactory.getCurrentSession()::saveOrUpdate);
     }
 
     public Collection<Company> getCompanyNames(){

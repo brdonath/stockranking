@@ -26,7 +26,7 @@ public class ExameNamesExtractor implements Extractor<List<Company>> {
 
     public  void extract() throws Exception {
         List<Company> companies = extractCompanies();
-        persist(companies);
+        companyRepository.saveOrUpdate(companies);
    }
 
     private List<Company> extractCompanies() throws IOException {
@@ -46,11 +46,4 @@ public class ExameNamesExtractor implements Extractor<List<Company>> {
         }
         return companies;
     }
-
-    private void persist(List<Company> companies) {
-        companies.forEach(companyRepository::saveOrUpdate);
-    }
-
-
-
 }
