@@ -51,24 +51,14 @@ public class Main {
 
     private void start(String[] args) throws Exception {
 //        stockNamesExtractor.extract();
-//        stockDataExtractor.extract();
+        stockDataExtractor.extract();
 
         List<Result> results = rank();
         resultsRepository.persist(transform(results));
-//        System.out.println("cheguei");
+        System.out.println("cheguei");
 
 //        tempName();
     }
-
-//    private void tempName() throws IOException {
-//        Collection<Company> companyNames = companyRepository.getCompanyNames();
-//        for (Company companyName : companyNames) {
-//            String s = String.format(Constants.HTTP_STOCK_DATA, companyName.getCodBolsa());
-//            Document doc = Jsoup.connect(s).get();
-//            Elements select = doc.select(".multiplus thead tr");
-//
-//        }
-//    }
 
     private  List<Result>  rank() {
         Collection<Company> companyList = companyRepository.getCompanyList();

@@ -29,7 +29,6 @@ public class StockDataExtractor implements Extractor<List<Company>> {
     public void extract() throws Exception {
             for (Company item : companyRepository.getCompanyList()) {
                try {
-//                    if(!item.getCodBolsa().equalsIgnoreCase("ogxp")) continue;
                     String s = String.format(Constants.HTTP_STOCK_DATA, item.getCodBolsa());
                     Document doc = Jsoup.connect(s).get();
 
@@ -58,13 +57,13 @@ public class StockDataExtractor implements Extractor<List<Company>> {
                     .patrimonio(tds.get(1).text())
                     .receitaLiquida(tds.get(2).text())
                     .lucro(tds.get(3).text())
-                    .margem(tds.get(4).text())
-                    .roe(tds.get(5).text())
-                    .caixa(tds.get(6).text())
-                    .cxLiquido(tds.get(7).text())
-                    .divida(tds.get(8).text())
-                    .divDivPL(tds.get(9).text())
-                    .divDivLL(tds.get(10).text()).build();
+                    .margem(tds.get(6).text())
+                    .roe(tds.get(9).text())
+                    .caixa(tds.get(12).text())
+                    .cxLiquido(tds.get(13).text())
+                    .divida(tds.get(14).text())
+                    .divDivPL(tds.get(15).text())
+                    .divDivLL(tds.get(16).text()).build();
         } else {
             return new Balance.Builder()
                     .ano(tds.get(0).text())
