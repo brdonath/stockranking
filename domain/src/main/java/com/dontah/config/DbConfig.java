@@ -22,7 +22,7 @@ public class DbConfig {
     @Bean
     public DataSource restDataSource(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setUrl("jdbc:sqlite:/export/data/mydb.sqlite");
+        dataSource.setUrl("jdbc:sqlite::resource:mydb.sqlite");
         dataSource.setPassword("");
         dataSource.setUsername("");
         dataSource.setDriverClassName("org.sqlite.JDBC");
