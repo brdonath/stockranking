@@ -1,4 +1,13 @@
-apply from: 'http://tellurianring.com/projects/gradle-plugins/gradle-release/apply.groovy'
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'net.researchgate:gradle-release:2.2.1'
+    }
+}
+
+apply plugin: 'net.researchgate.release'
 
 ext.springVersion = '4.0.6.RELEASE'
 ext.hibernateVersion = '4.3.6.Final'
