@@ -57,7 +57,7 @@
             <img id="img$id" src="/img/${result.company.codBolsa}.gif" src="">
         </h3>
 
-        <h4><p class="text-left" style="vertical-align: middle;">Pontua$esc.html("çõ")es:</p></h4>
+        <h4><p class="text-left" style="vertical-align: middle;">Pontua&ccedil;&otilde;es:</p></h4>
         <table class="table table-striped table-hover table-condensed table-bordered text-center">
             <tbody>
             <tr>
@@ -82,7 +82,7 @@
         <div class="btn pull-right">
             Retirado de
             <a target="_blank" href="http://www.bastter.com/mercado/acao/${result.company.codBolsa}.aspx}">
-                <img style="width: 112px;" src="/img/logo.png"></a> (em milh$esc.html("õe")s)
+                <img style="width: 112px;" src="/img/logo.png"></a> (em milh&otilde;es)
         </div>
         <table class="table table-striped table-hover table-condensed table-bordered">
             <thead>

@@ -1,7 +1,3 @@
-repositories {
-    mavenCentral()
-}
-
 dependencies {
     compile project(":domain")
     compile "org.jsoup:jsoup:1.7.2"

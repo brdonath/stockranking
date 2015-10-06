@@ -2,11 +2,11 @@
 <html xmlns="http://www.w3.org/1999/html">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
     <meta name="Description"
-          content="O Ranking de Ações é um projeto destinado a pontuar todas as empresas listadas na BM&FBovespa.">
+          content="O Ranking de A&ccedil;&otilde;es é um projeto destinado a pontuar todas as empresas listadas na BM&FBovespa.">
 
-    <title>Ranking de Ações</title>
+    <title>Ranking de A&ccedil;&otilde;es</title>
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/bower_components/jquery-colorbox/example4/colorbox.css"></link>

@@ -1,23 +1,30 @@
 buildscript {
     repositories {
         jcenter()
+        mavenCentral()
     }
     dependencies {
         classpath 'net.researchgate:gradle-release:2.2.1'
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.6.RELEASE")
     }
 }
 
 apply plugin: 'net.researchgate.release'
 
-ext.springVersion = '4.0.6.RELEASE'
+ext.springVersion = '4.1.7.RELEASE'
 ext.hibernateVersion = '4.3.6.Final'
 
 
 subprojects {
+    configurations {
+        provided.all*.exclude group: 'javax.servlet'
+    }
+
     apply plugin: 'java'
 
     group = 'com.dontah'
     sourceCompatibility = 1.8
+    targetCompatibility = 1.8
 
     repositories {
         mavenCentral()
@@ -25,6 +32,13 @@ subprojects {
     }
 
     dependencies {
+        compile("org.springframework.boot:spring-boot-starter-web:1.2.6.RELEASE"){
+            exclude module: "spring-boot-starter-tomcat"
+        }
+
+        compile("org.springframework.boot:spring-boot-starter-tomcat:1.2.6.RELEASE")
+        compile("org.springframework.boot:spring-boot-starter-velocity:1.2.6.RELEASE")
+
         compile "org.springframework:spring-web:$springVersion"
         compile "org.springframework:spring-webmvc:$springVersion"
         compile "org.springframework:spring-core:$springVersion"
@@ -32,14 +46,18 @@ subprojects {
         compile "org.springframework:spring-orm:$springVersion"
         compile "org.springframework:spring-context-support:$springVersion"
 
-        compile "org.hibernate:hibernate-core:$hibernateVersion"
-        compile "org.hibernate:hibernate-entitymanager:$hibernateVersion"
+        compile("org.hibernate:hibernate-core:$hibernateVersion")
+        compile("org.hibernate:hibernate-entitymanager:$hibernateVersion")
         compile("org.hibernate:hibernate-ehcache:$hibernateVersion"){
             exclude group: 'net.sf.ehcache', module: 'ehcache-core'
         }
-        compile 'net.sf.ehcache:ehcache:2.7.0'
-        compile 'org.xerial:sqlite-jdbc:3.7.2'
+        compile ('net.sf.ehcache:ehcache:2.7.0')
+        compile ('org.xerial:sqlite-jdbc:3.7.2')
 
         testCompile group: 'junit', name: 'junit', version: '4.11'
     }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.7'
 }
