@@ -36,7 +36,7 @@ subprojects {
             exclude module: "spring-boot-starter-tomcat"
         }
 
-        compile("org.springframework.boot:spring-boot-starter-tomcat:1.2.6.RELEASE")
+        compile("org.springframework.boot:spring-boot-starter-jetty:1.2.6.RELEASE")
         compile("org.springframework.boot:spring-boot-starter-velocity:1.2.6.RELEASE")
 
         compile "org.springframework:spring-web:$springVersion"
