@@ -19,15 +19,7 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 public class DbConfig {
-    @Bean
-    public DataSource restDataSource(){
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setUrl("jdbc:sqlite::resource:mydb.sqlite");
-        dataSource.setPassword("");
-        dataSource.setUsername("");
-        dataSource.setDriverClassName("org.sqlite.JDBC");
-        return dataSource;
-    }
+
     Properties hibernateProperties() {
         return new Properties() {
             {
@@ -48,9 +40,10 @@ public class DbConfig {
     }
 
     @Bean
-    public LocalSessionFactoryBean entityManagerFactory() {
+    @Autowired
+    public LocalSessionFactoryBean entityManagerFactory(DataSource dataSource) {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-        sessionFactory.setDataSource(restDataSource());
+        sessionFactory.setDataSource(dataSource);
         sessionFactory.setPackagesToScan("com.dontah");
         sessionFactory.setHibernateProperties(hibernateProperties());
 

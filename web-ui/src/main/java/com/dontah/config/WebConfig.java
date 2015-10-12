@@ -5,9 +5,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.autoconfigure.velocity.VelocityAutoConfiguration;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.*;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -26,9 +24,9 @@ import java.util.Properties;
 @Configuration
 @EnableAutoConfiguration(
         exclude = {
-                DataSourceAutoConfiguration.class,
                 HibernateJpaAutoConfiguration.class})
 @ComponentScan("com.dontah")
+@PropertySource({"application.properties","db.properties"})
 public class WebConfig {
 
     public static void main(String[] args) throws Exception {
