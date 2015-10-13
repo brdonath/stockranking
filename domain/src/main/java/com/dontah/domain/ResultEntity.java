@@ -7,6 +7,8 @@ import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.math.BigDecimal;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by Bruno on 10/08/14.
@@ -25,16 +27,16 @@ public class ResultEntity {
     @Transient
     private Company company;
 
-    @Type(type="com.dontah.dialect.BigDecimalToStringType")
+    @Type(type = "com.dontah.dialect.BigDecimalToStringType")
     private BigDecimal lucro;
 
-    @Type(type="com.dontah.dialect.BigDecimalToStringType")
+    @Type(type = "com.dontah.dialect.BigDecimalToStringType")
     private BigDecimal divida;
 
-    @Type(type="com.dontah.dialect.BigDecimalToStringType")
+    @Type(type = "com.dontah.dialect.BigDecimalToStringType")
     private BigDecimal roe;
 
-    @Type(type="com.dontah.dialect.BigDecimalToStringType")
+    @Type(type = "com.dontah.dialect.BigDecimalToStringType")
     private BigDecimal finalResult;
 
     private Long position;
@@ -110,5 +112,13 @@ public class ResultEntity {
 
     public void setLastPosition(Long lastPosition) {
         this.lastPosition = lastPosition;
+    }
+
+    public List<Balance> getBalanceListInReverseOrder() {
+        return getCompany()
+                .getBalanceList()
+                .stream()
+                .sorted(Comparator.<Balance>reverseOrder())
+                .collect(Collectors.toList());
     }
 }

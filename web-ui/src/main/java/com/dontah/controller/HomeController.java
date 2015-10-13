@@ -3,12 +3,11 @@ package com.dontah.controller;
 import com.dontah.domain.ResultEntity;
 import com.dontah.repository.CompanyRepository;
 import com.dontah.repository.ResultsRepository;
+import com.dontah.service.DbMakerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,6 +22,18 @@ public class HomeController {
     @Autowired CompanyRepository companyRepository;
 
     @Autowired ResultsRepository resultsRepository;
+    @Autowired DbMakerService dbMakerService;
+
+    @RequestMapping(value = "/builddb", method = RequestMethod.POST)
+    @ResponseBody
+    public String builddb() {
+        try {
+            dbMakerService.make();
+        } catch (Exception e) {
+            dbMakerService.rollback();
+        }
+        return "ok";
+    }
 
     @RequestMapping("/")
     public String home(

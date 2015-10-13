@@ -1,6 +1,5 @@
 package com.dontah.service;
 
-import com.dontah.config.LocalConfig;
 import com.dontah.domain.Company;
 import com.dontah.domain.ResultEntity;
 import com.dontah.processors.BoostAnalizer;
@@ -11,15 +10,12 @@ import com.dontah.repository.CompanyRepository;
 import com.dontah.repository.ResultsRepository;
 import com.dontah.service.extractor.StockDataExtractor;
 import com.dontah.service.extractor.StockNamesExtractor;
-import com.dontah.utils.Constants;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
+import org.apache.commons.io.FileUtils;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
@@ -31,39 +27,46 @@ import java.util.stream.Collectors;
  * Created by Bruno on 22/08/14.
  */
 @Component
-public class Main {
+public class DbMakerService {
 
-    @Autowired CompanyRepository companyRepository;
-    @Autowired ResultsRepository resultsRepository;
-    @Autowired StockNamesExtractor stockNamesExtractor;
-    @Autowired StockDataExtractor stockDataExtractor;
+    @Autowired
+    CompanyRepository companyRepository;
+    @Autowired
+    ResultsRepository resultsRepository;
+    @Autowired
+    StockNamesExtractor stockNamesExtractor;
+    @Autowired
+    StockDataExtractor stockDataExtractor;
 
-    @Autowired LucroProcessor lucroProcessor;
-    @Autowired ROEProcessor roeProcessor;
-    @Autowired DividaProcessor dividaProcessor;
+    @Autowired
+    LucroProcessor lucroProcessor;
+    @Autowired
+    ROEProcessor roeProcessor;
+    @Autowired
+    DividaProcessor dividaProcessor;
 
-    public static void main(String[] args) throws Exception {
+    @Autowired
+    SessionFactory sessionFactory;
 
-        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(LocalConfig.class);
-        Main main = applicationContext.getBean(Main.class);
-        main.start(args);
-    }
-
-    private void start(String[] args) throws Exception {
+    public void make() throws Exception {
+        backUpDb();
 //        stockNamesExtractor.extract();
         stockDataExtractor.extract();
 
         List<Result> results = rank();
         resultsRepository.persist(transform(results));
-        System.out.println("cheguei");
-
-//        tempName();
+        sessionFactory.getCache().evictAllRegions();
     }
 
-    private  List<Result>  rank() {
+    private void backUpDb() throws IOException {
+        FileUtils.copyFile(
+                        new File(ClassLoader.getSystemResource("mydb.sqlite").getFile()),new File("mydb.sqlite-backup"));
+    }
+
+    private List<Result> rank() {
         Collection<Company> companyList = companyRepository.getCompanyList();
 
-        companyList.forEach(a->
+        companyList.forEach(a ->
                 a.setBalanceList(
                         a.getBalanceList().stream()
                                 .filter(b -> Integer.parseInt(b.getPk().getAno()) >= 2009)
@@ -77,7 +80,7 @@ public class Main {
                 .collect(Collectors.toList());
     }
 
-    private List<BoostAnalizer> getBoostAnalizers( ) {
+    private List<BoostAnalizer> getBoostAnalizers() {
         return Arrays.asList(
                 new BoostAnalizer(1, lucroProcessor),
                 new BoostAnalizer(1, roeProcessor),
@@ -95,16 +98,26 @@ public class Main {
         resultEntity.setFinalResult(result.getResult());
         resultEntity.setCodBolsa(result.getCompany().getCodBolsa());
         for (BoostAnalizer boostAnalizer : result.getBoostAnalizerList()) {
-            if(boostAnalizer.getProcessor() instanceof LucroProcessor){
+            if (boostAnalizer.getProcessor() instanceof LucroProcessor) {
                 resultEntity.setLucro(boostAnalizer.getResult());
             }
-            if(boostAnalizer.getProcessor() instanceof DividaProcessor){
+            if (boostAnalizer.getProcessor() instanceof DividaProcessor) {
                 resultEntity.setDivida(boostAnalizer.getResult());
             }
-            if(boostAnalizer.getProcessor() instanceof ROEProcessor){
+            if (boostAnalizer.getProcessor() instanceof ROEProcessor) {
                 resultEntity.setRoe(boostAnalizer.getResult());
             }
         }
         return resultEntity;
+    }
+
+    public void rollback() {
+        try {
+            FileUtils.copyFile(
+                   new File("mydb.sqlite-backup"), new File(ClassLoader.getSystemResource("mydb.sqlite").getFile()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        sessionFactory.getCache().evictAllRegions();
     }
 }

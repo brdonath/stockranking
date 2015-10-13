@@ -97,7 +97,7 @@
             </tr>
             </thead>
             <tbody>
-                #foreach($balance in $result.company.balanceList)
+                #foreach($balance in $result.balanceListInReverseOrder)
                 <tr>
                     <td>$!balance.pk.ano</td>
                     <td>$!balance.patrimonio</td>

@@ -26,7 +26,8 @@ function goColorbox() {
             width: "70%",
             rel: 'group1',
             scrolling: true,
-            current: ""
+            current: "",
+            maxHeight:"90%"
         });
 }
 
@@ -69,18 +70,6 @@ $("#e21,#e22").select2({
             $(".table-data-companies").show();
         }
     });
-
-//swipe
-jQuery("#colorbox").swipe({
-    //Generic swipe handler for all directions
-    swipeLeft: function (event, direction, distance, duration, fingerCount) {
-        jQuery.colorbox.next();
-
-    },
-    swipeRight: function (event, direction, distance, duration, fingerCount){
-        jQuery.colorbox.prev();
-    }
-});
 
 $(document).bind('cbox_open', function () {
     $('html').css({ overflow: 'hidden' });
