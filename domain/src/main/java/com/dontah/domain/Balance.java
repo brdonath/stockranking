@@ -46,6 +46,24 @@ public class Balance implements Serializable, Comparable<Balance> {
                     ", ano='" + ano + '\'' +
                     '}';
         }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            CompanyBalancePK that = (CompanyBalancePK) o;
+
+            return codBolsa.equals(that.codBolsa) && ano.equals(that.ano);
+
+        }
+
+        @Override
+        public int hashCode() {
+            int result = codBolsa.hashCode();
+            result = 31 * result + ano.hashCode();
+            return result;
+        }
     }
 
     @Override

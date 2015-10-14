@@ -23,9 +23,9 @@ public class DbConfig {
     Properties hibernateProperties() {
         return new Properties() {
             {
-                setProperty("hibernate.hbm2ddl.auto", "none");
+                setProperty("hibernate.hbm2ddl.auto", "");
                 setProperty("hibernate.dialect","com.dontah.dialect.SQLiteDialect");
-                setProperty("hibernate.cache.region.factory_class","org.hibernate.cache.ehcache.EhCacheRegionFactory");
+                setProperty("hibernate.cache.region.factory_class","org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory");
                 setProperty("hibernate.cache.use_second_level_cache","true");
                 setProperty("hibernate.cache.use_query_cache","true");
                 setProperty("hibernate.show_sql", "false");
