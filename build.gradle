@@ -1,3 +1,9 @@
+ext{
+    springVersion = '4.1.7.RELEASE'
+    springBootVersion = '1.2.6.RELEASE'
+    hibernateVersion = '4.3.11.Final'
+}
+
 buildscript {
     repositories {
         jcenter()
@@ -10,10 +16,6 @@ buildscript {
 }
 
 apply plugin: 'net.researchgate.release'
-
-ext.springVersion = '4.1.7.RELEASE'
-ext.hibernateVersion = '4.3.6.Final'
-
 
 subprojects {
     configurations {
@@ -32,14 +34,15 @@ subprojects {
     }
 
     dependencies {
-        compile("org.springframework.boot:spring-boot-starter-web:1.2.6.RELEASE"){
+        compile("org.springframework.boot:spring-boot-starter-web:$springBootVersion"){
             exclude module: "spring-boot-starter-tomcat"
         }
-        compile("org.springframework.boot:spring-boot-starter-tomcat:1.2.6.RELEASE")
-        compile("org.springframework.boot:spring-boot-starter-velocity:1.2.6.RELEASE")
-        compile("org.springframework.boot:spring-boot-starter-data-jpa:1.2.6.RELEASE")
+        compile("org.springframework.boot:spring-boot-starter-undertow:$springBootVersion")
+        compile("org.springframework.boot:spring-boot-starter-velocity:$springBootVersion")
+        compile("org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion")
 
-        compile 'org.hibernate:hibernate-ehcache:4.3.11.Final'
+        compile ("org.hibernate:hibernate-ehcache:$hibernateVersion")
+        compile 'net.sourceforge.pjl-comp-filter:pjl-comp-filter:1.7'
         compile 'commons-io:commons-io:2.4'
         compile 'org.xerial:sqlite-jdbc:3.7.2'
 
