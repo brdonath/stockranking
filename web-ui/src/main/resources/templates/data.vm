@@ -11,7 +11,7 @@
             <span class="label label-default" style="font-size: 18px;">$result.position&ordm;</span>
         </td>
         <td class="col-md-3 col-xs-9 text-left" style="vertical-align: middle;">
-            <img class="lazy" width="46px" src="/img/${result.company.codBolsa}.gif">
+            <img class="lazy" height="23px" width="46px" src="/img/${result.company.codBolsa}.gif">
             $result.company.codBolsa $result.company.nome
             <a href="#div$id" class="btn btn-default btn-link btn-xs inline">
                 <span class="glyphicon glyphicon-plus"></span> detalhes</a>
