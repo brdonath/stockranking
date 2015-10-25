@@ -4,3 +4,4 @@ build/
 .gradle/
 classes/
 nohup.out
+web-ui/src/main/resources/static/bower_components/
