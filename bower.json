@@ -1,0 +1,28 @@
+{
+  "name": "stockranking",
+  "authors": [
+    "Nelma <nelmasb@gmail.com>"
+  ],
+  "description": "site about ranking",
+  "main": "web-ui/src/main/resources/static/js/main.js",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "stockranking"
+  ],
+  "license": "MIT",
+  "homepage": "https://nelmasb@bitbucket.org/brdonath/stockranking.git",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "1.9.1",
+    "bootstrap": "3.2.0"
+  }
+}
