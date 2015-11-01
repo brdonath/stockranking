@@ -19,8 +19,6 @@ import java.util.List;
 @Controller
 public class RankingAPIController implements IRankingAPIController {
 
-    private static final int BUFFER_SIZE = 4096;
-
     @Autowired ResultsRepository resultsRepository;
     @Autowired CompanyRepository companyRepository;
 
@@ -53,37 +51,4 @@ public class RankingAPIController implements IRankingAPIController {
             @RequestParam(value="q") String query) {
         return resultsRepository.get(query, false);
     }
-
-//    @RequestMapping("/json")
-//    @ResponseBody
-//    public List<ResultEntity> doDownload(){
-//        return resultsRepository.list(0,500, true);
-//    }
-//
-//    @RequestMapping(value ="/zip", method = RequestMethod.GET)
-//    public void doDownlod(HttpServletResponse response) throws IOException {
-//
-//        // get MIME type of the file
-//        String mimeType = "application/zip";
-//        ByteArrayOutputStream out = new ByteArrayOutputStream();
-//        GZIPOutputStream gzip = new GZIPOutputStream(out);
-//
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        objectMapper.writeValue(gzip, resultsRepository.list(0, 5000, true));
-//
-//        // set content attributes for the response
-//        response.setContentType(mimeType);
-////        response.setContentLength((int) out.);
-//
-//        // set headers for the response
-//        String headerKey = "Content-Disposition";
-//        String headerValue = String.format("attachment; filename=\"%s\"","fulldata.zip");
-//        response.setHeader(headerKey, headerValue);
-//
-//        // get output stream of the response
-//        ServletOutputStream outputStream = response.getOutputStream();
-//        outputStream.write(out.toByteArray());
-//
-//        outputStream.close();
-//    }
 }
