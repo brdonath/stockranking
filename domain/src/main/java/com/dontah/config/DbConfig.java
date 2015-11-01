@@ -25,9 +25,8 @@ public class DbConfig {
             {
                 setProperty("hibernate.hbm2ddl.auto", "");
                 setProperty("hibernate.dialect","com.dontah.dialect.SQLiteDialect");
-                setProperty("hibernate.cache.region.factory_class","org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory");
-                setProperty("hibernate.cache.use_second_level_cache","true");
-                setProperty("hibernate.cache.use_query_cache","true");
+                setProperty("hibernate.cache.use_second_level_cache","false");
+                setProperty("hibernate.cache.use_query_cache","false");
                 setProperty("hibernate.show_sql", "false");
                 setProperty("hibernate.globally_quoted_identifiers", "true");
                 setProperty("hibernate.generate_statistics", "false");
