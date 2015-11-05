@@ -9,7 +9,7 @@
     var preload_data =
             [#foreach($company in $companyNames){id:'$company.codBolsa',text:'$company.codBolsa - $company.nome'}#if ($velocityHasNext),#end#end]
 </script>
-<script src="/js/main.js"></script>
+<script src="/js/main-min.js"></script>
 <div id="fb-root"></div>
 <script>
     //facebook
