@@ -66,7 +66,8 @@ subprojects {
 task wrapper(type: Wrapper) {
     gradleVersion = '2.7'
 }
-
+task gulp_default(dependsOn: [installGulp, npmInstall])
 task build(dependsOn: gulp_default) {
     println "dependdsOn gradle gulp_default"
 }
+
