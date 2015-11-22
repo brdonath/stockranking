@@ -3,7 +3,6 @@ package com.dontah.controller;
 import com.dontah.domain.ResultEntity;
 import com.dontah.repository.CompanyRepository;
 import com.dontah.repository.ResultsRepository;
-import com.dontah.service.DbMakerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,26 +13,16 @@ import java.util.List;
 @Controller
 public class HomeController {
 
-    public static class Params{
+    public static class Params {
         int whereAmI = 0;
         int offset = 30;
     }
 
-    @Autowired CompanyRepository companyRepository;
+    @Autowired
+    CompanyRepository companyRepository;
 
-    @Autowired ResultsRepository resultsRepository;
-    @Autowired DbMakerService dbMakerService;
-
-    @RequestMapping(value = "/builddb", method = RequestMethod.POST)
-    @ResponseBody
-    public String builddb() {
-        try {
-            dbMakerService.make();
-        } catch (Exception e) {
-            dbMakerService.rollback();
-        }
-        return "ok";
-    }
+    @Autowired
+    ResultsRepository resultsRepository;
 
     @RequestMapping("/")
     public String home(
@@ -65,7 +54,7 @@ public class HomeController {
         return "data";
     }
 
-    private boolean hasNext(List<ResultEntity> list){
+    private boolean hasNext(List<ResultEntity> list) {
         return !(list == null || list.isEmpty()) &&
                 list.get(list.size() - 1).getOrder() <= companyRepository.getCount();
     }

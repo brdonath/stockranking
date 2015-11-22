@@ -1,9 +1,12 @@
 
 apply plugin: 'spring-boot'
 
+springBoot {
+    executable = true
+}
+
 dependencies {
     compile project(':domain')
-    compile project(':dbmaker')
 
     compile 'javax.validation:validation-api:1.1.0.Final'
 
