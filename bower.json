@@ -1,7 +1,8 @@
 {
   "name": "stockranking",
   "authors": [
-    "Nelma <nelmasb@gmail.com>"
+    "Nelma <nelmasb@gmail.com>",
+    "Bruno Donath <bruno.internet@gmail.com>"
   ],
   "description": "site about ranking",
   "main": "web-ui/src/main/resources/static/js/main.js",

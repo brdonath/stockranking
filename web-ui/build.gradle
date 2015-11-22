@@ -14,3 +14,7 @@ dependencies {
     compile "cglib:cglib:2.2.2"
     compile 'com.google.guava:guava:17.0'
 }
+
+jar{
+    archiveName = 'stockranking.jar'
+}
