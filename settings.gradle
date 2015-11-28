@@ -1,2 +1,2 @@
-include 'domain','web-ui','dbmaker'
+include 'domain','web-ui'
 

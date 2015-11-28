@@ -37,6 +37,7 @@ subprojects {
     }
 
     apply plugin: 'java'
+    apply plugin: 'maven'
 
     group = 'com.dontah'
     sourceCompatibility = 1.8
@@ -65,6 +66,7 @@ subprojects {
     gulp_default.dependsOn installGulp
     gulp_default.dependsOn npmInstall
     build.dependsOn gulp_default
+    build.dependsOn install
 }
 
 task wrapper(type: Wrapper) {
