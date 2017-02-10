@@ -1,5 +1,6 @@
 
 apply plugin: 'spring-boot'
+apply plugin: 'docker'
 
 springBoot {
     executable = true
@@ -17,4 +18,21 @@ dependencies {
 
 jar{
     archiveName = 'stockranking.jar'
+}
+
+task buildDocker(type: Docker, dependsOn: build) {
+    push = true
+    project.group = 'brdonath'
+    applicationName = 'stockranking'
+    dockerfile = file('src/main/docker/Dockerfile')
+    doFirst {
+        copy {
+            from jar
+            into stageDir
+        }
+    }
+}
+
+docker{
+    registry = 'brdonath'
 }
