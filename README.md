@@ -1,2 +1,3 @@
-npm install
-node_modules/gulp/bin/gulp.js default
+# Ranking de ações
+
+online em: www.rankingdeacoes.com.br
