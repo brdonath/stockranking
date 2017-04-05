@@ -8,19 +8,21 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by Bruno on 19/07/14.
  */
-@Repository
-@Transactional
-public class CompanyRepository {
+public interface CompanyRepository extends JpaRepository<Company,String> {
 
-    @Autowired
+    /*@Autowired
     SessionFactory sessionFactory;
 
     public Company getCompany(String id) {
@@ -68,5 +70,5 @@ public class CompanyRepository {
         return ((Long) sessionFactory.getCurrentSession().createCriteria(Company.class).
                 setCacheable(true)
                 .setProjection(Projections.rowCount()).uniqueResult());
-    }
+    }*/
 }

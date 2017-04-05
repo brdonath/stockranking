@@ -15,31 +15,41 @@ import java.util.stream.Collectors;
  */
 @Entity
 @Table(name = "Result")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class ResultEntity {
 
     @Id
     @GeneratedValue
+    @Column(name = "\"order\"")
     private Long order;
 
+    @Column(name = "codBolsa", insertable = false, updatable = false)
     private String codBolsa;
 
-    @Transient
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "codBolsa")
     private Company company;
 
     @Type(type = "com.dontah.dialect.BigDecimalToStringType")
+    @Column
     private BigDecimal lucro;
 
     @Type(type = "com.dontah.dialect.BigDecimalToStringType")
+    @Column
     private BigDecimal divida;
 
     @Type(type = "com.dontah.dialect.BigDecimalToStringType")
+    @Column
     private BigDecimal roe;
 
     @Type(type = "com.dontah.dialect.BigDecimalToStringType")
+    @Column
     private BigDecimal finalResult;
 
+    @Column
     private Long position;
+
+    @Column(name = "lastPosition")
     private Long lastPosition;
 
     public String getCodBolsa() {
@@ -115,10 +125,11 @@ public class ResultEntity {
     }
 
     public List<Balance> getBalanceListInReverseOrder() {
-        return getCompany()
-                .getBalanceList()
-                .stream()
-                .sorted(Comparator.<Balance>reverseOrder())
-                .collect(Collectors.toList());
+        return getCompany() == null ? null :
+                getCompany()
+                        .getBalanceList()
+                        .stream()
+                        .sorted(Comparator.<Balance>reverseOrder())
+                        .collect(Collectors.toList());
     }
 }

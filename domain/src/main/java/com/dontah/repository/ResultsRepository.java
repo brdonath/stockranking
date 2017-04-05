@@ -5,9 +5,12 @@ import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -15,16 +18,11 @@ import java.util.List;
 /**
  * Created by Bruno on 10/08/14.
  */
-@Repository
-@Transactional
-public class ResultsRepository {
+public interface ResultsRepository extends JpaRepository<ResultEntity, Long> {
 
-    @Autowired
-    SessionFactory sessionFactory;
 
-    @Autowired
-    CompanyRepository companyRepository;
 
+    /*
     public List<ResultEntity> list(int whereAmI, int offset, boolean getAll){
         Query criteria = sessionFactory.getCurrentSession()
                 .createQuery("FROM ResultEntity order by position")
@@ -45,12 +43,8 @@ public class ResultsRepository {
         return criteria.list();
     }
 
-    /**
-     *
-     * @param codBolsas codBolsa splits by ,
-     * @return
-     */
-    public List<ResultEntity> get(String codBolsas, boolean getAll){
+
+    public List<ResultEntity> get(String codBolsasSplitByComma, boolean getAll){
         Query criteria = sessionFactory.getCurrentSession()
                 .createQuery("FROM ResultEntity r where r.codBolsa in (:codBolsa)")
                 .setParameterList("codBolsa", codBolsas.split(","))
@@ -103,5 +97,5 @@ public class ResultsRepository {
             before.setFinalResult(resultEntity.getFinalResult());
             sessionFactory.getCurrentSession().saveOrUpdate(before);
         }
-    }
+    }*/
 }

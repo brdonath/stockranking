@@ -12,13 +12,16 @@ import java.io.Serializable;
  */
 @Entity
 @Table
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Balance implements Serializable, Comparable<Balance> {
 
     @Embeddable
     public static  class CompanyBalancePK implements Serializable {
 
+        @Column( name = "codBolsa")
         private String codBolsa;
+
+        @Column
         private String ano;
 
         public CompanyBalancePK() {}
@@ -74,19 +77,46 @@ public class Balance implements Serializable, Comparable<Balance> {
     @EmbeddedId
     private CompanyBalancePK pk;
 
+    @Column
     private String patrimonio;
+
+    @Column(name = "receitaLiquida")
     private String receitaLiquida;
+
+    @Column
     private String lucro;
+
+    @Column
     private String margem;
+
+    @Column
     private String roe;
+
+    @Column
     private String caixa;
+
+    @Column(name = "cxLiquido")
     private String cxLiquido;
+
+    @Column
     private String divida;
+
+    @Column(name = "divDivPL")
     private String divDivPL;
+
+    @Column(name = "divDivLL")
     private String divDivLL;
+
+    @Column
     private String ie;
+
+    @Column
     private String ib;
+
+    @Column
     private String pdd;
+
+    @Column(name = "pddDivLL")
     private String pddDivLL;
 
 

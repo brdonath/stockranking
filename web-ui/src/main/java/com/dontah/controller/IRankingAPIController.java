@@ -16,7 +16,7 @@ import java.util.List;
 @RequestMapping("/data/" )
 public interface IRankingAPIController {
 
-    static final String RESULT_LIST = "/result/list";
+    /*static final String RESULT_LIST = "/result/list";
     static final String RESULT_COD_BOLSA= "/result/{codBolsa}";
     static final String RESULT_COD_BOLSA_ONLY = "/result/{codBolsa}/only";
     static final String RESULT_COMPANY_LIST = "/result/company/list";
@@ -41,4 +41,5 @@ public interface IRankingAPIController {
     @RequestMapping(RESULT_SEARCH)
     @ResponseBody
     List<ResultEntity> search(String query);
+    */
 }

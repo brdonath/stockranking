@@ -19,7 +19,7 @@ import java.util.List;
 @Controller
 public class RankingAPIController implements IRankingAPIController {
 
-    @Autowired ResultsRepository resultsRepository;
+    /*@Autowired ResultsRepository resultsRepository;
     @Autowired CompanyRepository companyRepository;
 
     @Override
@@ -50,5 +50,5 @@ public class RankingAPIController implements IRankingAPIController {
     public List<ResultEntity> search(
             @RequestParam(value="q") String query) {
         return resultsRepository.get(query, false);
-    }
+    }*/
 }

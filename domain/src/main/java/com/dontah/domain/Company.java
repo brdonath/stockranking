@@ -17,23 +17,29 @@ import java.util.TreeSet;
  */
 @Entity
 @Table
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Company implements Serializable, Comparable<Company> {
 
     @Id
     @JsonProperty("CodBolsa")
+    @Column(name = "codBolsa")
     private String codBolsa;
 
     @JsonProperty("Nome")
+    @Column
     private String nome;
 
-    @OneToMany(mappedBy = "pk.codBolsa", fetch = FetchType.EAGER)
-    @Fetch(FetchMode.JOIN)
+    @OneToMany(mappedBy = "pk.codBolsa", fetch = FetchType.LAZY)
     @SortNatural
     private Set<Balance> balanceList = new TreeSet<>();
 
     public Company() {
+    }
+
+    public Company(String codBolsa, String nome) {
+        this.codBolsa = codBolsa;
+        this.nome = nome;
     }
 
     public Company(Set<Balance> balanceList) {
