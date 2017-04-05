@@ -1,6 +1,7 @@
 
 apply plugin: 'spring-boot'
 apply plugin: 'docker'
+apply plugin: 'com.google.cloud.tools.appengine'
 
 springBoot {
     executable = true
@@ -9,6 +10,7 @@ springBoot {
 dependencies {
     compile project(':domain')
 
+    provided 'com.google.appengine:appengine:+'
     compile 'javax.validation:validation-api:1.1.0.Final'
 
     compile "jstl:jstl:1.2"
@@ -31,4 +33,12 @@ task buildDocker(type: Docker, dependsOn: build) {
             into stageDir
         }
     }
+}
+
+appengine {
+    deploy {
+        stopPreviousVersion = true
+        promote = true
+    }
+
 }
