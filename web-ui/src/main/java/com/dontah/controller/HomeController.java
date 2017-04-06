@@ -6,6 +6,7 @@ import com.dontah.service.ResultService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +32,7 @@ public class HomeController {
         model.addAttribute("results",resultService.findAll(0,offset));
         model.addAttribute("companyNames", companyService.findAll());
         model.addAttribute("hasNext", true);
+
         return "template";
     }
 

@@ -3,6 +3,8 @@ import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.orm.jpa.EntityScan;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +21,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @EnableJpaRepositories
 @EntityScan("com.dontah.domain")
+@EnableCaching
 public class Main {
 
     public static void main(String[] args) throws Exception {
@@ -30,4 +33,8 @@ public class Main {
         return new Jackson2ObjectMapperBuilder().modulesToInstall(Hibernate5Module.class);
     }
 
+//    @Bean
+//    public CacheManager getCacheManager(){
+//        return new Caffei
+//    }
 }
