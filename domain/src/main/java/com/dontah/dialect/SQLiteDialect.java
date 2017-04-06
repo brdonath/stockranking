@@ -1,7 +1,7 @@
 package com.dontah.dialect;
 
-        import org.hibernate.dialect.Dialect;
-        import org.hibernate.dialect.function.*;
+import org.hibernate.dialect.Dialect;
+import org.hibernate.dialect.function.*;
 import org.hibernate.type.StandardBasicTypes;
 
 import java.sql.Types;

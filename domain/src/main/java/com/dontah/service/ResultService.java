@@ -1,15 +1,12 @@
 package com.dontah.service;
 
-import com.dontah.domain.Company;
 import com.dontah.domain.ResultEntity;
-import com.dontah.repository.CompanyRepository;
 import com.dontah.repository.ResultsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import javax.xml.ws.ServiceMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,12 +16,9 @@ import java.util.List;
 @Service
 public class ResultService {
 
-
     @Autowired
     private ResultsRepository resultsRepository;
 
-    @Autowired
-    private CompanyRepository companyRepository;
 
     public List<ResultEntity> findAll(int page, int size){
         List<ResultEntity> results = resultsRepository.findAll(
@@ -34,7 +28,11 @@ public class ResultService {
 
     public List<ResultEntity> findAll(List<String> codList){
         List<ResultEntity> results = new ArrayList<>();
-        codList.forEach(codBolsa -> results.add(resultsRepository.findOne(codBolsa)));
-        return companies;
+        codList.forEach(codBolsa -> results.add(resultsRepository.findOneByCodBolsa(codBolsa)));
+        return results;
+    }
+
+    public ResultEntity findByCodBolsa(String codBolsa){
+        return resultsRepository.findOneByCodBolsa(codBolsa);
     }
 }

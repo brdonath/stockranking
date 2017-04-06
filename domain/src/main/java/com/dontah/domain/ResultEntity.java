@@ -1,13 +1,12 @@
 package com.dontah.domain;
 
-import org.hibernate.annotations.*;
-import org.hibernate.annotations.Cache;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -15,7 +14,6 @@ import java.util.stream.Collectors;
  */
 @Entity
 @Table(name = "Result")
-//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class ResultEntity {
 
     @Id

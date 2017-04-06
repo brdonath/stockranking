@@ -2,12 +2,9 @@ package com.dontah.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.*;
+import org.hibernate.annotations.SortNatural;
 
-import javax.persistence.Entity;
 import javax.persistence.*;
-import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Set;
 import java.util.TreeSet;
@@ -17,7 +14,6 @@ import java.util.TreeSet;
  */
 @Entity
 @Table
-//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Company implements Serializable, Comparable<Company> {
 
