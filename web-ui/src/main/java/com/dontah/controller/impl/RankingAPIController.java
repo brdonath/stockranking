@@ -6,7 +6,6 @@ import com.dontah.domain.ResultEntity;
 import com.dontah.service.CompanyService;
 import com.dontah.service.ResultService;
 import org.apache.commons.lang.StringUtils;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
