@@ -16,15 +16,8 @@
 #
 # This sample has manual_scaling set to 1.
 #
-runtime: java
+runtime: custom
 env: flex
-
-runtime_config:  # Optional
-  jdk: openjdk8
-
-handlers:
-- url: /.*
-  script: this field is required, but ignored
 
 manual_scaling:
   instances: 1

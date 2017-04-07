@@ -1,4 +1,4 @@
-FROM frolvlad/alpine-oraclejdk8:slim
+FROM gcr.io/google-appengine/openjdk
 VOLUME /tmp
 ADD stockranking.jar app.jar
 RUN sh -c 'touch /app.jar'
