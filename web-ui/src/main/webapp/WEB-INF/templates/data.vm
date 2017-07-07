@@ -32,7 +32,7 @@
             <strong>Pontua&ccedil;&atilde;o Final</strong><br>
             $result.finalResult <span
 
-                #set($value = ($result.position - $result.lastPosition))
+                #set($value = ($result.position - $result.lastPosition) * -1)
 
                 #if($result.position <= $result.lastPosition)
                     class="glyphicon glyphicon-chevron-up"
@@ -41,7 +41,7 @@
                     class="glyphicon glyphicon-chevron-down"
                     style="color: red"
                 #end
-               ><strong>$math.abs($value)</strong></span>
+               ><strong>$value</strong></span>
                </td>
 
     </tr>

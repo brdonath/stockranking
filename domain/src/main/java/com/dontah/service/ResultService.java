@@ -23,9 +23,8 @@ public class ResultService {
 
     @Cacheable(cacheNames = "results")
     public List<ResultEntity> findAll(int page, int size){
-        List<ResultEntity> results = resultsRepository.findAll(
+        return resultsRepository.findAll(
                 new PageRequest(page, size, new Sort(new Sort.Order(Sort.Direction.ASC, "position")))).getContent();
-        return results;
     }
 
     @Cacheable(cacheNames = "results")

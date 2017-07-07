@@ -43,7 +43,6 @@ public class Main {
         resolver.setSuffix(".vm");
         resolver.setViewClass(VelocityView.class);
         resolver.setExposeSpringMacroHelpers(true);
-        resolver.setToolboxConfigLocation("classpath:toolbox.xml");
         return resolver;
     }
 
