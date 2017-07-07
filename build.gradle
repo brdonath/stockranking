@@ -1,6 +1,5 @@
 ext{
-    springVersion = '4.1.7.RELEASE'
-    springBootVersion = '1.3.8.RELEASE'
+    springBootVersion = '1.4.7.RELEASE'
     hibernateVersion = '4.3.11.Final'
 }
 
@@ -14,9 +13,8 @@ buildscript {
     }
     dependencies {
         classpath 'net.researchgate:gradle-release:2.2.1'
-        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.3.8.RELEASE'
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.4.7.RELEASE'
         classpath 'com.moowork.gradle:gradle-gulp-plugin:0.11'
-        classpath 'se.transmode.gradle:gradle-docker:1.2'
         classpath 'com.google.cloud.tools:appengine-gradle-plugin:+'
     }
 }
@@ -44,12 +42,13 @@ gulp {
 }
 
 subprojects {
+
     configurations {
-        provided.all*.exclude group: 'javax.servlet'
+        compile.exclude module: 'spring-boot-starter-tomcat'
+        compile.exclude group: 'org.apache.tomcat.embed'
     }
 
     apply plugin: 'java'
-    apply plugin: 'maven'
 
     group = 'com.dontah'
     sourceCompatibility = 1.8
@@ -64,8 +63,6 @@ subprojects {
         compile("org.springframework.boot:spring-boot-starter-web:$springBootVersion"){
             exclude module: "spring-boot-starter-tomcat"
         }
-        compile("org.springframework.boot:spring-boot-starter-undertow:$springBootVersion")
-        compile("org.springframework.boot:spring-boot-starter-velocity:$springBootVersion")
         compile("org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion")
         compile("org.springframework.boot:spring-boot-starter-cache:$springBootVersion")
 
@@ -74,15 +71,17 @@ subprojects {
         compile 'org.xerial:sqlite-jdbc:3.16.1'
         compile 'com.fasterxml.jackson.datatype:jackson-datatype-hibernate5:2.7.4'
 
+        compile 'org.apache.velocity:velocity:1.7'
+        compile 'org.apache.velocity:velocity-tools:2.0'
+
         testCompile group: 'junit', name: 'junit', version: '4.11'
     }
 
     gulp_default.dependsOn installGulp
     gulp_default.dependsOn npmInstall
     build.dependsOn gulp_default
-    build.dependsOn install
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.7'
+    gradleVersion = '2.14.1'
 }

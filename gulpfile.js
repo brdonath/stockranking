@@ -9,7 +9,7 @@ gulp.task('bower', function() {
 });
 
 gulp.task('minify-css', function() {
-   return gulp.src('web-ui/src/main/resources/static/css/*.css')
+   return gulp.src(['web-ui/src/main/resources/static/css/*.css', '!web-ui/src/main/resources/static/css/*-min.css' ])
        .pipe(minifyCss())
        .pipe(rename({suffix: '-min'}))
        .pipe(gulp.dest('web-ui/src/main/resources/static/css/'));
