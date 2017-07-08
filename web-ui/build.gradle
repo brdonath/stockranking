@@ -4,31 +4,7 @@ apply plugin: 'com.google.cloud.tools.appengine'
 
 dependencies {
     compile project(':domain')
-
     providedCompile 'javax.servlet:javax.servlet-api:3.+'
-//    compile 'com.google.appengine:appengine-api-1.0-sdk:+'
-//    compile 'com.google.appengine:appengine-api-labs:+'
-//    compile 'com.google.appengine:appengine-java-sdk:+'
-//    compile 'com.google.appengine:appengine-local-runtime:+'
-//    compile 'com.google.appengine:appengine-local-runtime-shared:+'
-//    compile 'com.google.appengine:appengine-tools-sdk:+'
-//    compile 'com.google.appengine:appengine-api-stubs:+'
-    compile 'javax.validation:validation-api:1.1.0.Final'
-    compile 'javax.cache:cache-api:1.0.0'
-
-    //    compile 'com.google.appengine:appengine-api-labs:+'
-//    compile 'com.google.appengine:appengine-java-sdk:+'
-    compile 'com.google.appengine:appengine:+'
-
-    compile "jstl:jstl:1.2"
-    compile "cglib:cglib:2.2.2"
-    compile 'com.google.guava:guava:17.0'
-
-//    testCompile 'com.google.truth:truth:0.33'
-//    testCompile 'org.mockito:mockito-all:1.10.19'
-//    testCompile 'com.google.appengine:appengine-testing:+'
-//
-//    testCompile 'com.google.appengine:appengine-tools-sdk:+'
 }
 
 appengine {
