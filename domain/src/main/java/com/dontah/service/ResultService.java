@@ -20,21 +20,17 @@ public class ResultService {
     @Autowired
     private ResultsRepository resultsRepository;
 
-
-    @Cacheable(cacheNames = "results")
     public List<ResultEntity> findAll(int page, int size){
         return resultsRepository.findAll(
                 new PageRequest(page, size, new Sort(new Sort.Order(Sort.Direction.ASC, "position")))).getContent();
     }
 
-    @Cacheable(cacheNames = "results")
     public List<ResultEntity> findAll(List<String> codList){
         List<ResultEntity> results = new ArrayList<>();
         codList.forEach(codBolsa -> results.add(resultsRepository.findOneByCodBolsa(codBolsa)));
         return results;
     }
 
-    @Cacheable(cacheNames = "results")
     public ResultEntity findByCodBolsa(String codBolsa){
         return resultsRepository.findOneByCodBolsa(codBolsa);
     }

@@ -17,7 +17,6 @@ public class CompanyService {
     @Autowired
     CompanyRepository companyRepository;
 
-    @Cacheable(cacheNames = "companies")
     public List<Company> findAll(){
         return companyRepository.findAll();
     }

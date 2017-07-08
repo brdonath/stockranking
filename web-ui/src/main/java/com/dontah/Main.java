@@ -1,17 +1,16 @@
 package com.dontah;
 
-import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.boot.autoconfigure.velocity.VelocityProperties;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.*;
-import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
-import org.springframework.web.servlet.view.velocity.*;
+import org.springframework.web.servlet.view.velocity.VelocityConfig;
+import org.springframework.web.servlet.view.velocity.VelocityConfigurer;
+import org.springframework.web.servlet.view.velocity.VelocityView;
+import org.springframework.web.servlet.view.velocity.VelocityViewResolver;
 
 import java.util.Properties;
 
@@ -29,11 +28,6 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         SpringApplication.run(Main.class, args);
-    }
-
-    @Bean
-    public Jackson2ObjectMapperBuilder configureObjectMapper() {
-        return new Jackson2ObjectMapperBuilder().modulesToInstall(Hibernate5Module.class);
     }
 
     @Bean

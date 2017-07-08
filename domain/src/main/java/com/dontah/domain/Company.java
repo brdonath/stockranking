@@ -1,7 +1,5 @@
 package com.dontah.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.SortNatural;
 
 import javax.persistence.*;
@@ -14,15 +12,12 @@ import java.util.TreeSet;
  */
 @Entity
 @Table
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class Company implements Serializable, Comparable<Company> {
 
     @Id
-    @JsonProperty("CodBolsa")
     @Column(name = "codBolsa")
     private String codBolsa;
 
-    @JsonProperty("Nome")
     @Column
     private String nome;
 
