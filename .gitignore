@@ -7,3 +7,4 @@ nohup.out
 web-ui/src/main/resources/static/bower_components/
 node_modules/
 *-min.*
+target/
