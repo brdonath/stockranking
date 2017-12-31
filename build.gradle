@@ -12,7 +12,7 @@ buildscript {
         classpath 'net.researchgate:gradle-release:2.2.1'
         classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.4.7.RELEASE'
         classpath 'com.moowork.gradle:gradle-gulp-plugin:0.11'
-        classpath 'com.google.cloud.tools:appengine-gradle-plugin:+'
+        classpath 'com.google.cloud.tools:appengine-gradle-plugin:1.1.1'
     }
 }
 
@@ -28,6 +28,7 @@ repositories {
 
 apply plugin: 'net.researchgate.release'
 apply plugin: 'com.moowork.gulp'
+apply plugin: 'maven'
 
 node {
     version = '4.2.2'

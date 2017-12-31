@@ -43,7 +43,7 @@ public class Main {
     @Bean
     public VelocityConfig velocityConfigurer(){
         VelocityConfigurer velocityConfig = new VelocityConfigurer();
-        velocityConfig.setResourceLoaderPath("/WEB-INF/templates/");
+        velocityConfig.setResourceLoaderPath("classpath:/templates/");
         Properties velocityProperties = new Properties();
         velocityProperties.put("velocimacro.permissions.allow.inline.to.replace.global",true);
         velocityProperties.put("velocimacro.library.autoreload",true);

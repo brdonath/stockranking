@@ -1,0 +1,10 @@
+C:\workspace\stockranking\domain\src\main\java\com\dontah\service\CompanyService.java
+C:\workspace\stockranking\domain\src\main\java\com\dontah\dialect\SQLiteDialect.java
+C:\workspace\stockranking\domain\src\main\java\com\dontah\dialect\BigDecimalToStringType.java
+C:\workspace\stockranking\domain\src\main\java\com\dontah\repository\CompanyRepository.java
+C:\workspace\stockranking\domain\src\main\java\com\dontah\domain\Balance.java
+C:\workspace\stockranking\domain\src\main\java\com\dontah\service\ResultService.java
+C:\workspace\stockranking\domain\src\main\java\com\dontah\domain\ResultEntity.java
+C:\workspace\stockranking\domain\src\main\java\com\dontah\repository\BalanceRepository.java
+C:\workspace\stockranking\domain\src\main\java\com\dontah\repository\ResultsRepository.java
+C:\workspace\stockranking\domain\src\main\java\com\dontah\domain\Company.java

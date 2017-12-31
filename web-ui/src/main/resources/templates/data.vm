@@ -1,0 +1,121 @@
+#* @vtlvariable name="esc" type="org.apache.velocity.tools.generic.EscapeTool" *#
+#* @vtlvariable name="math" type="org.apache.velocity.tools.generic.MathTool" *#
+#* @vtlvariable name="results" type="java.util.ArrayList<com.dontah.domain.ResultEntity>" *#
+
+#foreach($result in $results)
+    #set($id = $result.company.codBolsa)
+<table class="table table-striped table-hover table-condensed table-bordered text-center">
+    <tbody>
+    <tr>
+        <td class="col-md-1 col-xs-1" style="vertical-align: middle;">
+            <span class="label label-default" style="font-size: 18px;">$result.position&ordm;</span>
+        </td>
+        <td class="col-md-3 col-xs-9 text-left" style="vertical-align: middle;">
+            <img class="lazy" height="23px" width="46px" src="/img/${result.company.codBolsa}.gif">
+            $result.company.codBolsa $result.company.nome
+            <a href="#div$id" class="btn btn-default btn-link btn-xs inline">
+                <span class="glyphicon glyphicon-plus"></span> detalhes</a>
+        </td>
+        <td class="col-sm-2 hidden-xs" >
+            <strong>Lucro</strong><br>
+            $result.lucro
+        </td>
+        <td class="col-sm-2 hidden-xs" >
+            <strong>D&iacute;vida</strong><br>
+            $result.divida
+        </td>
+        <td class="col-sm-2 hidden-xs" >
+            <strong>ROE</strong><br>
+            $result.Roe
+        </td>
+        <td class="success col-xs-2">
+            <strong>Pontua&ccedil;&atilde;o Final</strong><br>
+            $result.finalResult <span
+
+                #set($value = ($result.position - $result.lastPosition) * -1)
+
+                #if($result.position <= $result.lastPosition)
+                    class="glyphicon glyphicon-chevron-up"
+                    style="color: green"
+                #else
+                    class="glyphicon glyphicon-chevron-down"
+                    style="color: red"
+                #end
+               ><strong>$value</strong></span>
+               </td>
+
+    </tr>
+    </tbody>
+</table>
+#end
+
+#foreach($result in $results)
+    #set($id = $result.company.codBolsa)
+<div style="display: none">
+    <div id="div$id" tabindex="-1" role="dialog" aria-hidden="true">
+        <h3><span class="label label-default">$result.position&ordm;</span> $id - $result.company.nome
+            <img id="img$id" src="/img/${result.company.codBolsa}.gif" src="">
+        </h3>
+
+        <h4><p class="text-left" style="vertical-align: middle;">Pontua&ccedil;&otilde;es:</p></h4>
+        <table class="table table-striped table-hover table-condensed table-bordered text-center">
+            <tbody>
+            <tr>
+                <td class="col-xs-2" >
+                    <strong>Lucro</strong><br>
+                    $result.lucro
+                </td>
+                <td class="col-xs-2" >
+                    <strong>D&iacute;vida</strong><br>
+                    $result.divida
+                </td>
+                <td class="col-xs-2" >
+                    <strong>ROE</strong><br>
+                    $result.Roe
+                </td>
+                <td class="success col-xs-2">
+                    <strong>Pontua&ccedil;&atilde;o Final</strong><br>
+                    $result.finalResult</td>
+            </tr>
+        </table>
+
+        <div class="btn pull-right">
+            Retirado de
+            <a target="_blank" href="http://www.bastter.com/mercado/acao/${result.company.codBolsa}.aspx">
+                <img style="width: 112px;" src="/img/logo.png"></a> (em milh&otilde;es)
+        </div>
+        <table class="table table-striped table-hover table-condensed table-bordered">
+            <thead>
+            <tr>
+                <th>Ano</th>
+                <th>Patrim&ocirc;nio</th>
+                <th>Receita L&iacute;quida</th>
+                <th>Lucro</th>
+                <th class="hidden-xs hidden-sm">ROE</th>
+                <th class="hidden-xs hidden-sm">Caixa</th>
+                <th class="hidden-xs hidden-sm">D&iacute;vida</th>
+            </tr>
+            </thead>
+            <tbody>
+                #foreach($balance in $result.balanceListInReverseOrder)
+                <tr>
+                    <td>$!balance.pk.ano</td>
+                    <td>$!balance.patrimonio</td>
+                    <td>$!balance.receitaLiquida</td>
+                    <td >$!balance.lucro</td>
+                    <td class="hidden-xs hidden-sm">$!balance.roe</td>
+                    <td class="hidden-xs hidden-sm">$!balance.caixa</td>
+                    <td class="hidden-xs hidden-sm">$!balance.divida</td>
+                </tr>
+                #end
+            </tbody>
+        </table>
+    </div>
+</div>
+#end
+
+#if($hasNext)
+    #set($last = $results.size() - 1)
+    <a href="/infinite/?whereAmI=$results[$last].position" class='btn primary last' rel="nofollow">Next set &raquo;</a>
+#end
+
